@@ -3,23 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>큐비오랩 (CubioLab) - 에듀테크 & 수학 시각화 소프트웨어 연구소</title>
-  <meta name="description" content="큐비오랩(CubioLab)은 수학 교육자와 학습자를 위한 실시간 그래프 시각화 및 스마트 판서 솔루션 Graphly.net을 개발·운영하는 에듀테크 기업입니다.">
+  <title>큐비오랩 (CubioLab) — Graphly & Penchat</title>
+  <meta name="description" content="큐비오랩(CubioLab)은 직관적인 수학 그래프·판서 스튜디오 Graphly와 필기·음성 설명 메신저 Penchat을 개발·운영하는 소프트웨어 스튜디오입니다.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- 토스페이먼츠 결제창 SDK (V1 정식 표준 결제창) -->
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- 토스페이먼츠 결제창 SDK -->
   <script src="https://js.tosspayments.com/v1/payment"></script>
   <style>
     :root {
-      --bg-main: #f8fafc;
-      --bg-card: #ffffff;
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
+      --bg-page: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --text-strong: #0f172a;
+      --text-body: #334155;
       --text-muted: #64748b;
-      --accent-blue: #2563eb;
-      --accent-indigo: #4f46e5;
-      --border-light: #e2e8f0;
+      --border-color: #e2e8f0;
+      --graphly-primary: #2563eb;
+      --graphly-soft: #eff6ff;
+      --penchat-primary: #4f46e5;
+      --penchat-soft: #eef2ff;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
     }
 
     * {
@@ -29,11 +35,16 @@
       font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Malgun Gothic", sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      background-color: var(--bg-main);
-      color: var(--text-primary);
-      line-height: 1.6;
+      background-color: var(--bg-page);
+      color: var(--text-strong);
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
+      word-break: keep-all;
     }
 
     /* 상단 네비게이션 */
@@ -41,15 +52,16 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-light);
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
     }
 
     .nav-container {
-      max-width: 1160px;
+      max-width: 1120px;
       margin: 0 auto;
-      height: 68px;
+      height: 64px;
       padding: 0 24px;
       display: flex;
       align-items: center;
@@ -57,29 +69,29 @@
     }
 
     .brand-logo {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 10px;
       text-decoration: none;
-      color: var(--text-primary);
+      color: var(--text-strong);
     }
 
     .brand-cube {
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       border-radius: 9px;
-      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      background: linear-gradient(135deg, #0f172a 0%, #2563eb 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
       font-weight: 800;
-      font-size: 18px;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28);
+      font-size: 16px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16);
     }
 
     .brand-text {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 800;
       letter-spacing: -0.5px;
     }
@@ -87,453 +99,642 @@
     .brand-sub {
       font-size: 12px;
       font-weight: 600;
-      color: var(--accent-blue);
-      background: #eff6ff;
-      padding: 2px 8px;
-      border-radius: 999px;
-      margin-left: 4px;
+      color: var(--text-muted);
+      padding-left: 2px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 22px;
     }
 
     .nav-links a {
       text-decoration: none;
-      color: var(--text-secondary);
-      font-size: 14.5px;
+      color: var(--text-body);
+      font-size: 14px;
       font-weight: 600;
       transition: color 0.15s;
     }
 
     .nav-links a:hover {
-      color: var(--accent-blue);
+      color: var(--graphly-primary);
     }
 
-    .btn-nav-cta {
-      background: var(--text-primary);
-      color: #ffffff !important;
-      padding: 9px 18px;
+    .btn-nav-login {
+      background: var(--bg-subtle);
+      color: var(--text-strong);
+      padding: 7px 14px;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
-      border: none;
+      border: 1px solid var(--border-color);
       cursor: pointer;
-      transition: all 0.18s;
+      transition: all 0.15s;
     }
 
-    .btn-nav-cta:hover {
-      background: var(--accent-blue);
-      transform: translateY(-1px);
+    .btn-nav-login:hover {
+      background: #e2e8f0;
     }
 
     .user-badge-area {
       display: none;
       align-items: center;
-      gap: 10px;
-      font-size: 13.5px;
+      gap: 8px;
+      font-size: 13px;
       font-weight: 700;
-      color: var(--accent-blue);
-      background: #eff6ff;
-      padding: 6px 12px;
+      color: var(--graphly-primary);
+      background: var(--graphly-soft);
+      padding: 5px 12px;
       border-radius: 999px;
       border: 1px solid #bfdbfe;
     }
 
     .btn-logout-sm {
       background: #ffffff;
-      color: #475569;
+      color: var(--text-body);
       border: 1px solid #cbd5e1;
       border-radius: 6px;
-      padding: 3px 8px;
-      font-size: 12px;
+      padding: 2px 7px;
+      font-size: 11.5px;
       font-weight: 600;
       cursor: pointer;
     }
 
     /* 히어로 섹션 */
     .hero {
-      padding: 84px 24px 68px;
+      padding: 76px 24px 56px;
       text-align: center;
-      background: radial-gradient(circle at 50% 0%, #eff6ff 0%, #f8fafc 70%);
-      border-bottom: 1px solid var(--border-light);
+      background:
+        radial-gradient(circle at 25% 0%, rgba(37, 99, 235, 0.07) 0%, transparent 50%),
+        radial-gradient(circle at 75% 0%, rgba(79, 70, 229, 0.07) 0%, transparent 50%);
     }
 
     .hero-inner {
-      max-width: 860px;
+      max-width: 780px;
       margin: 0 auto;
     }
 
-    .hero-badge {
+    .hero-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 14px;
+      padding: 5px 13px;
       border-radius: 999px;
       background: #ffffff;
-      border: 1px solid #bfdbfe;
-      color: var(--accent-blue);
-      font-size: 13px;
+      border: 1px solid var(--border-color);
+      color: var(--text-body);
+      font-size: 12.5px;
       font-weight: 700;
-      margin-bottom: 22px;
-      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+
+    .hero-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #2563eb;
     }
 
     .hero h1 {
-      font-size: 44px;
+      font-size: clamp(32px, 5vw, 46px);
       font-weight: 800;
-      letter-spacing: -1.2px;
-      line-height: 1.25;
-      color: var(--text-primary);
-      margin-bottom: 20px;
+      letter-spacing: -1.3px;
+      line-height: 1.22;
+      color: var(--text-strong);
+      margin-bottom: 16px;
     }
 
     .hero h1 span {
-      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero p {
-      font-size: 17.5px;
-      color: var(--text-secondary);
-      max-width: 680px;
-      margin: 0 auto 36px;
-      word-break: keep-all;
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto 30px;
+      font-weight: 500;
     }
 
-    .hero-actions {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
+    .hero-shortcuts {
+      display: inline-flex;
+      gap: 12px;
       flex-wrap: wrap;
-    }
-
-    .btn-primary-lg {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, #2563eb, #4f46e5);
-      color: #ffffff;
-      padding: 15px 30px;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 700;
-      text-decoration: none;
-      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25);
-      transition: all 0.2s;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-primary-lg:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(37, 99, 235, 0.35);
-    }
-
-    .btn-outline-lg {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #ffffff;
-      color: var(--text-primary);
-      padding: 15px 28px;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 700;
-      text-decoration: none;
-      border: 1.5px solid #cbd5e1;
-      transition: all 0.2s;
-    }
-
-    .btn-outline-lg:hover {
-      border-color: var(--accent-blue);
-      color: var(--accent-blue);
-    }
-
-    /* 섹션 공통 */
-    .section {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 72px 24px;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 44px;
-    }
-
-    .section-tag {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--accent-blue);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .section-title {
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: -0.8px;
-      margin-bottom: 12px;
-    }
-
-    .section-desc {
-      font-size: 16px;
-      color: var(--text-secondary);
-    }
-
-    /* 주요 기능 카드 */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-      gap: 24px;
-    }
-
-    .feature-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: 16px;
-      padding: 32px 28px;
-      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
-    }
-
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: #eff6ff;
-      color: var(--accent-blue);
-      display: flex;
-      align-items: center;
       justify-content: center;
-      font-size: 22px;
-      margin-bottom: 18px;
     }
 
-    .feature-card h3 {
-      font-size: 19px;
+    .btn-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 24px;
+      border-radius: 12px;
+      font-size: 15px;
       font-weight: 700;
-      margin-bottom: 10px;
+      text-decoration: none;
+      transition: all 0.18s ease;
     }
 
-    .feature-card p {
-      font-size: 14.5px;
-      color: var(--text-secondary);
-      word-break: keep-all;
+    .btn-hero-graphly {
+      background: #0f172a;
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.16);
     }
 
-    /* 상품 및 요금제 안내 (PG 심사 필수 섹션) */
-    .pricing-section {
+    .btn-hero-graphly:hover {
+      background: #1e293b;
+      transform: translateY(-2px);
+    }
+
+    .btn-hero-penchat {
       background: #ffffff;
-      border-top: 1px solid var(--border-light);
-      border-bottom: 1px solid var(--border-light);
+      color: var(--text-strong);
+      border: 1.5px solid #cbd5e1;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
     }
 
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      max-width: 1080px;
+    .btn-hero-penchat:hover {
+      border-color: var(--penchat-primary);
+      color: var(--penchat-primary);
+      transform: translateY(-2px);
+    }
+
+    /* 서비스 쇼케이스 (2대 핵심 서비스) */
+    .services-section {
+      max-width: 1120px;
       margin: 0 auto;
+      padding: 16px 24px 72px;
     }
 
-    .pricing-card {
-      background: var(--bg-main);
-      border: 1.5px solid var(--border-light);
-      border-radius: 20px;
-      padding: 32px 28px;
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .service-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px 32px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
       position: relative;
+      overflow: hidden;
     }
 
-    .pricing-card.featured {
-      background: #ffffff;
-      border: 2px solid var(--accent-blue);
-      box-shadow: 0 16px 38px rgba(37, 99, 235, 0.10);
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
     }
 
-    .popular-badge {
-      position: absolute;
-      top: -13px;
-      right: 24px;
-      background: linear-gradient(135deg, #2563eb, #4f46e5);
-      color: #ffffff;
+    .service-card.card-graphly:hover {
+      border-color: #93c5fd;
+    }
+
+    .service-card.card-penchat:hover {
+      border-color: #a5b4fc;
+    }
+
+    .service-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .service-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       font-size: 12px;
-      font-weight: 700;
-      padding: 4px 12px;
+      font-weight: 800;
+      padding: 5px 11px;
       border-radius: 999px;
+      letter-spacing: 0.3px;
     }
 
-    .plan-name {
-      font-size: 20px;
-      font-weight: 800;
-      margin-bottom: 6px;
+    .badge-graphly {
+      background: var(--graphly-soft);
+      color: var(--graphly-primary);
     }
 
-    .plan-summary {
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-bottom: 18px;
+    .badge-penchat {
+      background: var(--penchat-soft);
+      color: var(--penchat-primary);
     }
 
-    .plan-price {
-      font-size: 34px;
-      font-weight: 800;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-    }
-
-    .plan-price span {
-      font-size: 14.5px;
+    .service-domain {
+      font-size: 13px;
       font-weight: 600;
       color: var(--text-muted);
     }
 
-    .plan-period-notice {
-      font-size: 12.5px;
-      color: var(--accent-blue);
-      background: #eff6ff;
-      padding: 6px 10px;
-      border-radius: 6px;
+    .service-title-row {
       margin-bottom: 20px;
-      font-weight: 600;
     }
 
-    .plan-features {
-      list-style: none;
-      margin-bottom: 24px;
-    }
-
-    .plan-features li {
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-bottom: 9px;
+    .service-name {
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
-    .plan-features li::before {
-      content: "✓";
-      color: var(--accent-blue);
-      font-weight: 800;
+    .service-tagline {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-body);
     }
 
-    .plan-btn-group {
+    /* 서비스 미니 프리뷰 일러스트 박스 */
+    .service-preview {
+      height: 196px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .preview-graphly {
+      background: linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%);
+    }
+
+    .preview-penchat {
+      background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+    }
+
+    .preview-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* 요점 리스트 */
+    .point-list {
+      list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 12px;
+      margin-bottom: 28px;
     }
 
-    .btn-plan-buy {
-      width: 100%;
-      padding: 13px 14px;
-      border-radius: 10px;
-      font-size: 15px;
+    .point-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14.5px;
+      color: var(--text-body);
+    }
+
+    .point-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .card-graphly .point-icon {
+      background: var(--graphly-soft);
+      color: var(--graphly-primary);
+    }
+
+    .card-penchat .point-icon {
+      background: var(--penchat-soft);
+      color: var(--penchat-primary);
+    }
+
+    .point-item strong {
+      color: var(--text-strong);
       font-weight: 700;
-      cursor: pointer;
-      border: 1.5px solid var(--accent-blue);
-      background: var(--accent-blue);
-      color: #ffffff;
-      transition: all 0.16s;
+      margin-right: 4px;
     }
 
-    .btn-plan-buy:hover {
+    .service-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 12px;
+      font-size: 15.5px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: all 0.16s ease;
+    }
+
+    .cta-graphly {
+      background: var(--graphly-primary);
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.22);
+    }
+
+    .cta-graphly:hover {
       background: #1d4ed8;
     }
 
-    .btn-plan-guest-direct {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 9px;
-      font-size: 13.5px;
-      font-weight: 700;
-      cursor: pointer;
-      border: 1.5px solid #cbd5e1;
-      background: #ffffff;
-      color: var(--text-primary);
-      transition: all 0.16s;
+    .cta-penchat {
+      background: var(--penchat-primary);
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.22);
     }
 
-    .btn-plan-guest-direct:hover {
-      border-color: var(--accent-blue);
-      color: var(--accent-blue);
-      background: #f8fafc;
+    .cta-penchat:hover {
+      background: #4338ca;
     }
 
-    /* 약관 및 환불 규정 안내 박스 */
-    .policy-grid {
+    /* 한눈에 보는 비교 바 */
+    .summary-strip {
+      max-width: 1120px;
+      margin: 0 auto 72px;
+      padding: 0 24px;
+    }
+
+    .summary-box {
+      background: #0f172a;
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 28px 32px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 24px;
     }
 
-    .policy-box {
-      background: #ffffff;
-      border: 1px solid var(--border-light);
-      border-radius: 14px;
-      padding: 26px;
+    .summary-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    .policy-box h4 {
-      font-size: 16.5px;
+    .summary-label {
+      font-size: 12px;
       font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text-primary);
+      color: #93c5fd;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
     }
 
-    .policy-box ul {
-      padding-left: 18px;
-      color: var(--text-secondary);
+    .summary-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .summary-desc {
       font-size: 13.5px;
+      color: #94a3b8;
     }
 
-    .policy-box li {
+    /* 요금제 섹션 (간결한 구성 + 토스페이먼츠 연동 유지) */
+    .pricing-section {
+      background: #ffffff;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 64px 24px;
+    }
+
+    .section-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .section-head h2 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.6px;
       margin-bottom: 6px;
     }
 
-    /* 푸터 (사업자 필수 정보 표기) */
+    .section-head p {
+      font-size: 14.5px;
+      color: var(--text-muted);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .price-card {
+      background: var(--bg-page);
+      border: 1.5px solid var(--border-color);
+      border-radius: 18px;
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .price-card.featured {
+      background: #ffffff;
+      border-color: var(--graphly-primary);
+      box-shadow: 0 10px 28px rgba(37, 99, 235, 0.08);
+    }
+
+    .price-tag {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .tag-free {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .tag-graphly {
+      background: var(--graphly-soft);
+      color: var(--graphly-primary);
+    }
+
+    .tag-penchat {
+      background: var(--penchat-soft);
+      color: var(--penchat-primary);
+    }
+
+    .price-title {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .price-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .price-amount {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--text-strong);
+      margin-bottom: 4px;
+    }
+
+    .price-amount span {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .price-period {
+      font-size: 12px;
+      color: var(--graphly-primary);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .price-features {
+      list-style: none;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .price-features li {
+      font-size: 13.5px;
+      color: var(--text-body);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .price-features li::before {
+      content: "✓";
+      color: var(--graphly-primary);
+      font-weight: 800;
+    }
+
+    .btn-price-buy {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--graphly-primary);
+      background: var(--graphly-primary);
+      color: #ffffff;
+      transition: all 0.15s;
+    }
+
+    .btn-price-buy:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-price-buy.secondary {
+      background: #ffffff;
+      color: var(--text-strong);
+      border-color: #cbd5e1;
+      margin-top: 6px;
+      font-size: 13px;
+      padding: 9px 12px;
+    }
+
+    .btn-price-buy.secondary:hover {
+      border-color: var(--graphly-primary);
+      color: var(--graphly-primary);
+    }
+
+    /* 약관 및 환불 안내 (초간결) */
+    .policy-section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 44px 24px;
+    }
+
+    .policy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .policy-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 20px 22px;
+    }
+
+    .policy-card h4 {
+      font-size: 14.5px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text-strong);
+    }
+
+    .policy-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* 푸터 */
     footer {
       background: #0f172a;
       color: #94a3b8;
-      padding: 56px 24px 48px;
-      font-size: 13.5px;
+      padding: 44px 24px 40px;
+      font-size: 13px;
     }
 
     .footer-inner {
-      max-width: 1160px;
+      max-width: 1120px;
       margin: 0 auto;
     }
 
     .footer-top {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       flex-wrap: wrap;
-      gap: 24px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 24px;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 20px;
     }
 
     .footer-brand {
       color: #ffffff;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 800;
-      margin-bottom: 6px;
     }
 
     .footer-links {
       display: flex;
-      gap: 20px;
+      gap: 18px;
       flex-wrap: wrap;
     }
 
@@ -546,12 +747,12 @@
 
     .footer-links a:hover {
       color: #ffffff;
-      text-decoration: underline;
     }
 
     .biz-info {
-      line-height: 1.9;
+      line-height: 1.85;
       color: #94a3b8;
+      font-size: 12.5px;
     }
 
     .biz-info strong {
@@ -559,8 +760,8 @@
     }
 
     .copyright {
-      margin-top: 20px;
-      font-size: 12.5px;
+      margin-top: 14px;
+      font-size: 12px;
       color: #64748b;
     }
 
@@ -569,7 +770,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(15, 23, 42, 0.55);
       backdrop-filter: blur(4px);
       z-index: 999;
       align-items: center;
@@ -584,125 +785,110 @@
     .modal-card {
       background: #ffffff;
       border-radius: 16px;
-      max-width: 540px;
+      max-width: 480px;
       width: 100%;
       max-height: 88vh;
       overflow-y: auto;
-      padding: 30px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      padding: 26px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
     }
 
     .modal-header h3 {
-      font-size: 19px;
+      font-size: 17px;
       font-weight: 800;
     }
 
     .btn-close-modal {
       background: none;
       border: none;
-      font-size: 22px;
+      font-size: 20px;
       cursor: pointer;
       color: var(--text-muted);
     }
 
     .modal-body {
       font-size: 13.5px;
-      color: var(--text-secondary);
-      line-height: 1.7;
+      color: var(--text-body);
+      line-height: 1.65;
     }
 
     .form-field {
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      margin-bottom: 12px;
+      gap: 4px;
+      margin-bottom: 10px;
     }
 
     .form-field label {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
-      color: var(--text-primary);
+      color: var(--text-strong);
     }
 
     .form-field input {
-      padding: 10px 12px;
+      padding: 9px 11px;
       border: 1.5px solid #cbd5e1;
       border-radius: 8px;
-      font-size: 14px;
-      color: var(--text-primary);
+      font-size: 13.5px;
+      color: var(--text-strong);
       outline: none;
     }
 
     .form-field input:focus {
-      border-color: var(--accent-blue);
+      border-color: var(--graphly-primary);
     }
 
     .checkout-summary-box {
-      background: #eff6ff;
+      background: var(--graphly-soft);
       border: 1px solid #bfdbfe;
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .checkout-summary-title {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
-      color: var(--text-primary);
+      color: var(--text-strong);
     }
 
     .checkout-summary-sub {
-      font-size: 12px;
-      color: var(--text-secondary);
+      font-size: 11.5px;
+      color: var(--text-muted);
       margin-top: 2px;
     }
 
     .checkout-summary-price {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 800;
-      color: var(--accent-blue);
+      color: var(--graphly-primary);
     }
 
-    .test-account-notice {
-      background: #f8fafc;
-      border: 1px dashed #94a3b8;
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 12.5px;
-      color: #334155;
-      margin-bottom: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-autofill-test {
-      background: #e2e8f0;
-      color: #0f172a;
-      border: none;
-      border-radius: 6px;
-      padding: 6px 10px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .btn-autofill-test:hover {
-      background: #cbd5e1;
+    @media (max-width: 860px) {
+      .services-grid,
+      .pricing-grid,
+      .summary-box,
+      .policy-grid {
+        grid-template-columns: 1fr;
+      }
+      .service-card {
+        padding: 28px 22px;
+      }
+      .nav-links a.hide-mobile {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -717,187 +903,293 @@
         <span class="brand-sub">큐비오랩</span>
       </a>
       <nav class="nav-links">
-        <a href="#features">솔루션 소개</a>
-        <a href="#pricing">요금제 안내</a>
-        <a href="#policy">환불·이용정책</a>
-        <a href="#footer">기업 정보</a>
+        <a href="#services">서비스</a>
+        <a href="#pricing">요금제</a>
+        <a href="#footer" class="hide-mobile">기업 정보</a>
         <div id="navUserBadge" class="user-badge-area">
-          <span id="lblNavUserEmail">👤 test@cubiolab.com</span>
+          <span id="lblNavUserEmail">test@cubiolab.com</span>
           <button type="button" class="btn-logout-sm" onclick="handleLogout()">로그아웃</button>
         </div>
-        <button id="btnNavLogin" class="btn-nav-cta" onclick="openModal('loginModal')">로그인 / 이용권 구매</button>
+        <button id="btnNavLogin" class="btn-nav-login" onclick="openModal('loginModal')">로그인</button>
       </nav>
     </div>
   </header>
 
-  <!-- 메인 히어로 -->
+  <!-- 히어로 -->
   <section class="hero">
     <div class="hero-inner">
-      <div class="hero-badge">✨ 에듀테크 수학 시각화 & 스마트 판서 솔루션</div>
-      <h1>수학 교육의 직관적 혁신,<br><span>큐비오랩 (CubioLab)</span>이 만듭니다</h1>
+      <div class="hero-pill">
+        <span class="hero-pill-dot"></span>
+        <span>CubioLab Software Studio</span>
+      </div>
+      <h1>복잡한 설명을 가장 직관적으로,<br><span>Graphly</span> &amp; <span>Penchat</span></h1>
       <p>
-        복잡한 수식 타이핑 없이 마우스와 펜으로 함수의 개형을 즉시 설계하고,
-        교재 제작부터 실시간 전자칠판 수업까지 한 화면에서 완성하는 차세대 교육용 소프트웨어 스튜디오입니다.
+        수식 없이 드래그로 완성하는 수학 그래프 스튜디오와,<br>
+        문서 위 필기·음성을 링크 하나로 전하는 비주얼 메신저를 만듭니다.
       </p>
-      <div class="hero-actions">
-        <a href="#pricing" class="btn-primary-lg">이용권 구매 (비회원 결제 가능)</a>
-        <a href="https://funky3312.github.io/graphly/" target="_blank" rel="noopener" class="btn-outline-lg">Graphly 스튜디오 실행 ↗</a>
+      <div class="hero-shortcuts">
+        <a href="https://graphly.net/" target="_blank" rel="noopener" class="btn-hero btn-hero-graphly">
+          Graphly 실행하기 ↗
+        </a>
+        <a href="https://funky3312.github.io/penchat/" target="_blank" rel="noopener" class="btn-hero btn-hero-penchat">
+          Penchat 실행하기 ↗
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- 주요 기능 소개 -->
-  <section id="features" class="section">
-    <div class="section-header">
-      <span class="section-tag">Core Solutions</span>
-      <h2 class="section-title">Graphly.net 스튜디오 핵심 기능</h2>
-      <p class="section-desc">수업 준비 시간은 1/10로 줄이고, 강의 전달력은 극대화합니다.</p>
-    </div>
+  <!-- 핵심 서비스 (Graphly & Penchat) -->
+  <section id="services" class="services-section">
+    <div class="services-grid">
 
-    <div class="feature-grid">
-      <div class="feature-card">
-        <div class="feature-icon">📈</div>
-        <h3>WYSIWYG 실시간 함수 개형 조작</h3>
-        <p>삼차·사차·초월함수 및 구간별 함수의 극점과 점근선을 마우스나 스타일러스 펜으로 드래그하여 100% 엄밀한 수학적 비율로 즉시 시각화합니다.</p>
+      <!-- 1. Graphly -->
+      <article class="service-card card-graphly">
+        <div>
+          <div class="service-top-bar">
+            <span class="service-badge badge-graphly">MATH &amp; WHITEBOARD</span>
+            <span class="service-domain">graphly.net</span>
+          </div>
+          <div class="service-title-row">
+            <h2 class="service-name">Graphly</h2>
+            <p class="service-tagline">수식 입력 없이 드래그로 완성하는 수학 그래프 &amp; 판서 스튜디오</p>
+          </div>
+
+          <!-- Graphly 시각 요약 프리뷰 -->
+          <div class="service-preview preview-graphly" aria-hidden="true">
+            <svg class="preview-svg" viewBox="0 0 480 196" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- 모눈 & 축 -->
+              <line x1="0" y1="49" x2="480" y2="49" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+              <line x1="0" y1="147" x2="480" y2="147" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+              <line x1="140" y1="0" x2="140" y2="196" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+              <line x1="340" y1="0" x2="340" y2="196" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+              <line x1="24" y1="120" x2="456" y2="120" stroke="#94a3b8" stroke-width="1.5"/>
+              <line x1="90" y1="16" x2="90" y2="180" stroke="#94a3b8" stroke-width="1.5"/>
+              <!-- 삼차함수 곡선 -->
+              <path d="M 55 162 C 115 20, 175 20, 235 98 C 295 176, 355 176, 415 32" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round"/>
+              <!-- 비율 가이드 점선 -->
+              <line x1="145" y1="46" x2="325" y2="46" stroke="#60a5fa" stroke-width="1.2" stroke-dasharray="3 3"/>
+              <line x1="325" y1="46" x2="325" y2="150" stroke="#60a5fa" stroke-width="1.2" stroke-dasharray="3 3"/>
+              <!-- 극대/극소/변곡 핸들 -->
+              <circle cx="145" cy="46" r="7" fill="#ffffff" stroke="#2563eb" stroke-width="3"/>
+              <circle cx="235" cy="98" r="5.5" fill="#2563eb"/>
+              <circle cx="325" cy="150" r="7" fill="#ffffff" stroke="#2563eb" stroke-width="3"/>
+              <!-- 핸들 라벨 -->
+              <rect x="108" y="16" width="76" height="22" rx="6" fill="#0f172a"/>
+              <text x="146" y="31" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">극점 드래그</text>
+              <rect x="342" y="138" width="92" height="24" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
+              <text x="388" y="154" fill="#1d4ed8" font-size="11" font-weight="800" text-anchor="middle">Ctrl+C 삽도복사</text>
+            </svg>
+          </div>
+
+          <ul class="point-list">
+            <li class="point-item">
+              <span class="point-icon">1</span>
+              <div><strong>3초 함수 개형 조작</strong> — 극점·점근선을 마우스나 펜으로 끌어 다항·초월·구간별·합성함수를 정확한 수학 비율로 즉시 그립니다.</div>
+            </li>
+            <li class="point-item">
+              <span class="point-icon">2</span>
+              <div><strong>PDF 문항 캡처 &amp; 판서</strong> — 교재·모의고사 PDF를 바로 열어 문항을 크롭하고 실시간 그래프 카드와 함께 판서합니다.</div>
+            </li>
+            <li class="point-item">
+              <span class="point-icon">3</span>
+              <div><strong>원클릭 교재 삽도 복사</strong> — 완성된 그래프를 투명 배경 고화질 PNG로 복사(Ctrl+C)해 한글(HWP)·PPT에 1초 만에 붙여넣습니다.</div>
+            </li>
+          </ul>
+        </div>
+
+        <a href="https://graphly.net/" target="_blank" rel="noopener" class="service-cta cta-graphly">
+          Graphly 스튜디오 실행 ↗
+        </a>
+      </article>
+
+      <!-- 2. Penchat -->
+      <article class="service-card card-penchat">
+        <div>
+          <div class="service-top-bar">
+            <span class="service-badge badge-penchat">VOICE &amp; INK MESSENGER</span>
+            <span class="service-domain">Penchat Web</span>
+          </div>
+          <div class="service-title-row">
+            <h2 class="service-name">Penchat</h2>
+            <p class="service-tagline">붙여넣고, 그리며 말하고, 링크로 바로 보내는 시각 설명 메신저</p>
+          </div>
+
+          <!-- Penchat 시각 요약 프리뷰 -->
+          <div class="service-preview preview-penchat" aria-hidden="true">
+            <svg class="preview-svg" viewBox="0 0 480 196" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- 문서 카드 배경 -->
+              <rect x="46" y="22" width="388" height="152" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+              <!-- 문서 텍스트 라인 -->
+              <rect x="70" y="44" width="140" height="10" rx="5" fill="#cbd5e1"/>
+              <rect x="70" y="64" width="240" height="8" rx="4" fill="#e2e8f0"/>
+              <rect x="70" y="80" width="210" height="8" rx="4" fill="#e2e8f0"/>
+              <!-- 형광펜 하이라이트 & 펜 체크 -->
+              <rect x="66" y="102" width="186" height="16" rx="4" fill="#fef08a"/>
+              <rect x="70" y="106" width="176" height="8" rx="4" fill="#475569"/>
+              <path d="M 272 110 C 292 92, 336 92, 348 112 C 358 130, 310 142, 276 128 C 254 118, 262 98, 290 96" stroke="#ef4444" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+              <!-- 우상단 음성 녹화 & 공유 캡슐 -->
+              <rect x="256" y="34" width="76" height="24" rx="12" fill="#fef2f2" stroke="#fecaca"/>
+              <circle cx="270" cy="46" r="4" fill="#ef4444"/>
+              <text x="299" y="50" fill="#dc2626" font-size="11" font-weight="800" text-anchor="middle">00:38</text>
+              <rect x="340" y="34" width="74" height="24" rx="12" fill="#4f46e5"/>
+              <text x="377" y="50" fill="#ffffff" font-size="11" font-weight="800" text-anchor="middle">📤 공유</text>
+              <!-- 필기 터치 재생 배지 -->
+              <rect x="244" y="136" width="168" height="26" rx="8" fill="#0f172a"/>
+              <text x="328" y="153" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">👆 필기 터치 시 설명 즉시 재생</text>
+            </svg>
+          </div>
+
+          <ul class="point-list">
+            <li class="point-item">
+              <span class="point-icon">1</span>
+              <div><strong>5대 초고속 불러오기</strong> — 클립보드 붙여넣기(Ctrl+V), 사진첩, 카메라 촬영, 화면 캡처, PDF를 여백 없이 불러와 손가락·펜으로 즉시 필기합니다.</div>
+            </li>
+            <li class="point-item">
+              <span class="point-icon">2</span>
+              <div><strong>필기 + 음성 자동 동기화</strong> — 화면 위에 그리며 말하면 각 필기 획마다 목소리 시점이 기록되어 무거운 영상 없이 가볍게 저장됩니다.</div>
+            </li>
+            <li class="point-item">
+              <span class="point-icon">3</span>
+              <div><strong>0초 공유 &amp; 터치 듣기</strong> — 카톡·메시지로 즉시 링크를 공유하고, 상대방은 완성본을 보다가 궁금한 필기만 톡 눌러 바로 설명을 듣습니다.</div>
+            </li>
+          </ul>
+        </div>
+
+        <a href="https://funky3312.github.io/penchat/" target="_blank" rel="noopener" class="service-cta cta-penchat">
+          Penchat 바로 실행 ↗
+        </a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 핵심 특징 3줄 요약 바 -->
+  <section class="summary-strip">
+    <div class="summary-box">
+      <div class="summary-item">
+        <span class="summary-label">No Install</span>
+        <div class="summary-title">설치 없이 모든 기기에서</div>
+        <p class="summary-desc">PC, 아이패드, 갤럭시탭, 스마트폰 웹 브라우저에서 즉시 작동합니다.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">✍️</div>
-        <h3>스마트 무한 판서 & PDF 교재 연동</h3>
-        <p>PDF 교재와 모의고사 문항을 즉시 불러와 무한 칠판 위에서 판서하고, 자동 도형 보정(Draw & Hold)과 올가미 도구를 활용할 수 있습니다.</p>
+      <div class="summary-item">
+        <span class="summary-label">Zero Delay</span>
+        <div class="summary-title">120Hz 초저지연 필기 &amp; 음성 싱크</div>
+        <p class="summary-desc">전용 벡터 잉크 엔진과 타임스탬프 동기화로 끊김 없는 판서·설명을 제공합니다.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">📋</div>
-        <h3>원클릭 고해상도 교재 삽도 내보내기</h3>
-        <p>완성된 함수 그래프와 판서 영역을 투명 배경 또는 고해상도 PNG로 원클릭 복사(Ctrl+C)하여 한글(HWP), 워드, PPT 교재에 즉시 삽입합니다.</p>
+      <div class="summary-item">
+        <span class="summary-label">Instant Share</span>
+        <div class="summary-title">링크 한 줄로 즉각 공유</div>
+        <p class="summary-desc">무거운 동영상 인코딩 없이 링크와 QR코드로 1초 만에 전달합니다.</p>
       </div>
     </div>
   </section>
 
-  <!-- 요금제 및 상품 안내 (토스페이먼츠/카드사 심사 필수 항목 - 비회원 즉시 카드결제 지원) -->
+  <!-- 요금제 안내 -->
   <section id="pricing" class="pricing-section">
-    <div class="section">
-      <div class="section-header">
-        <span class="section-tag">Pricing Plans</span>
-        <h2 class="section-title">서비스 이용권 안내</h2>
-        <p class="section-desc">회원 로그인 또는 <strong>비회원 바로 구매</strong>를 통해 즉시 카드로 결제하고 모든 프리미엄 기능을 이용하실 수 있습니다.</p>
+    <div class="section-inner">
+      <div class="section-head">
+        <h2>심플한 요금제</h2>
+        <p>로컬 작업·이미지 복사·파일 저장은 무료이며, 클라우드 보관함과 공유 링크 확장이 필요할 때 Pro를 선택하세요.</p>
       </div>
 
       <div class="pricing-grid">
-        <!-- 1. Graphly Pro 얼리버드 1개월 이용권 (3,900원) -->
-        <div class="pricing-card featured">
-          <div class="popular-badge">얼리버드 특가 BEST</div>
+        <!-- Free -->
+        <div class="price-card">
           <div>
-            <div class="plan-name">Graphly Pro 1개월 이용권 (30일)</div>
-            <p class="plan-summary">다중 슬라이드 무제한 + 음성·필기 강의 녹화 + 클라우드 보관함 올인원 이용권</p>
-            <div class="plan-price">3,900원 <span>/ 1개월(30일) · VAT 포함</span></div>
-            <div class="plan-period-notice">⚡ 결제 즉시 이용 가능 · 제공기간: 결제일로부터 1개월(30일) 단건 이용권</div>
-            <ul class="plan-features">
-              <li>실시간 다항·초월·구간별 함수 및 N축 합성함수 무제한</li>
-              <li>수업용 다중 슬라이드 최대 100장 연속 생성 및 PDF 연동</li>
-              <li>실시간 음성+필기+펜포인터 동기화 강의 녹화 및 공유 링크 무제한</li>
-              <li>클라우드 빠른 보관함 무제한 저장 및 고해상도 PNG 내보내기</li>
+            <span class="price-tag tag-free">FREE</span>
+            <div class="price-title">기본 무료 플랜</div>
+            <p class="price-sub">누구나 제한 없이 시작하는 기본 스튜디오</p>
+            <div class="price-amount">0원 <span>/ 평생 무료</span></div>
+            <div class="price-period">별도 카드 등록 없이 즉시 사용</div>
+            <ul class="price-features">
+              <li>Graphly 모든 함수 작도 &amp; 고화질 PNG 복사</li>
+              <li>Penchat 5대 불러오기 &amp; 필기·음성 녹화</li>
+              <li>내 기기에 파일 저장 무제한</li>
+              <li>기본 클라우드 보관함 100MB 제공</li>
             </ul>
           </div>
-          <div class="plan-btn-group">
-            <button type="button" class="btn-plan-buy" onclick="openCheckoutModal('Graphly Pro 1개월 이용권 (30일)', 3900)">💳 카드 결제하기 (비회원/회원)</button>
-            <button type="button" class="btn-plan-guest-direct" onclick="requestTossCardPaymentDirect('Graphly Pro 1개월 이용권 (30일)', 3900)">⚡ 비회원 원클릭 카드결제창 바로 열기</button>
+          <a href="https://graphly.net/" target="_blank" rel="noopener" class="btn-price-buy secondary" style="text-align:center; text-decoration:none;">무료로 바로 시작</a>
+        </div>
+
+        <!-- Graphly Pro -->
+        <div class="price-card featured">
+          <div>
+            <span class="price-tag tag-graphly">GRAPHLY PRO</span>
+            <div class="price-title">Graphly Pro 이용권</div>
+            <p class="price-sub">수학 교재 제작 및 실시간 수업·공유 올인원</p>
+            <div class="price-amount">3,900원 <span>/ 1개월(30일) · VAT 포함</span></div>
+            <div class="price-period">⚡ 결제 즉시 활성화 · 단건 기간제(30일)</div>
+            <ul class="price-features">
+              <li>나만의 그래프 프리셋 무제한 저장</li>
+              <li>클라우드 보관함 대용량 확장 및 폴더 관리</li>
+              <li>수업 슬라이드·음성 해설 링크 &amp; QR 공유</li>
+              <li>1년권(365일) 구매 시 39,000원 (2개월 무료)</li>
+            </ul>
+          </div>
+          <div>
+            <button type="button" class="btn-price-buy" onclick="openCheckoutModal('Graphly Pro 1개월 이용권 (30일)', 3900)">💳 Graphly Pro 1개월권 결제 (3,900원)</button>
+            <button type="button" class="btn-price-buy secondary" onclick="openCheckoutModal('Graphly Pro 1년 이용권 (365일)', 39000)">Graphly Pro 1년권 결제 (39,000원)</button>
           </div>
         </div>
 
-        <!-- 2. Graphly Standard 1개월 이용권 (9,900원) -->
-        <div class="pricing-card">
+        <!-- Penchat Pro -->
+        <div class="price-card">
           <div>
-            <div class="plan-name">Graphly Standard 1개월 이용권 (30일)</div>
-            <p class="plan-summary">교재 제작 및 고화질 수학 그래프 삽도 제작 특화 단건 이용권</p>
-            <div class="plan-price">9,900원 <span>/ 1개월(30일) · VAT 포함</span></div>
-            <div class="plan-period-notice">⚡ 결제 즉시 이용 가능 · 제공기간: 결제일로부터 1개월(30일) 단건 이용권</div>
-            <ul class="plan-features">
-              <li>실시간 다항·초월·구간별 함수 그래프 무제한 생성</li>
-              <li>고해상도 PNG 저장 및 원클릭 클립보드 복사 (Ctrl+C)</li>
-              <li>교점 자동 판독기 및 수선·수식 라벨 도구</li>
-              <li>합성함수 N축 스튜디오 및 학생용 QR 공유</li>
+            <span class="price-tag tag-penchat">PENCHAT PRO</span>
+            <div class="price-title">Penchat Pro 이용권</div>
+            <p class="price-sub">문서·스샷 음성 설명 공유 및 클라우드 보관함</p>
+            <div class="price-amount">3,900원 <span>/ 1개월(30일) · VAT 포함</span></div>
+            <div class="price-period">⚡ 결제 즉시 활성화 · 단건 기간제(30일)</div>
+            <ul class="price-features">
+              <li>필기 터치 듣기(Tap-to-Hear) 공유 링크 무제한</li>
+              <li>클라우드 보관함 대용량 확장 및 다중 슬라이드</li>
+              <li>모바일·태블릿·PC 실시간 동기화</li>
+              <li>1년권(365일) 구매 시 39,000원 (2개월 무료)</li>
             </ul>
           </div>
-          <div class="plan-btn-group">
-            <button type="button" class="btn-plan-buy" onclick="openCheckoutModal('Graphly Standard 1개월 이용권 (30일)', 9900)">💳 카드 결제하기 (비회원/회원)</button>
-            <button type="button" class="btn-plan-guest-direct" onclick="requestTossCardPaymentDirect('Graphly Standard 1개월 이용권 (30일)', 9900)">⚡ 비회원 원클릭 카드결제창 바로 열기</button>
-          </div>
-        </div>
-
-        <!-- 3. Graphly Classroom Pro 1개월 이용권 (19,900원) -->
-        <div class="pricing-card">
           <div>
-            <div class="plan-name">Graphly Classroom Pro 1개월 이용권 (30일)</div>
-            <p class="plan-summary">학원·연구실용 실시간 수업 판서 + PDF 교재 연동 + 그래프 올인원 이용권</p>
-            <div class="plan-price">19,900원 <span>/ 1개월(30일) · VAT 포함</span></div>
-            <div class="plan-period-notice">⚡ 결제 즉시 이용 가능 · 제공기간: 결제일로부터 1개월(30일) 단건 이용권</div>
-            <ul class="plan-features">
-              <li>Pro 플랜의 모든 그래프 시각화 및 다중 슬라이드 기능 포함</li>
-              <li>PDF 교재 문항 캡처 & 개념 페이지 통째 판서 보드</li>
-              <li>판서 모드 ↔ 그래프 모드 실시간 전환 및 그래프 카드 보관</li>
-              <li>자동 기하 도형 보정(Draw & Hold) 및 올가미 이동 도구</li>
-            </ul>
-          </div>
-          <div class="plan-btn-group">
-            <button type="button" class="btn-plan-buy" onclick="openCheckoutModal('Graphly Classroom Pro 1개월 이용권 (30일)', 19900)">💳 카드 결제하기 (비회원/회원)</button>
-            <button type="button" class="btn-plan-guest-direct" onclick="requestTossCardPaymentDirect('Graphly Classroom Pro 1개월 이용권 (30일)', 19900)">⚡ 비회원 원클릭 카드결제창 바로 열기</button>
+            <button type="button" class="btn-price-buy" style="background:var(--penchat-primary); border-color:var(--penchat-primary);" onclick="openCheckoutModal('Penchat Pro 1개월 이용권 (30일)', 3900)">💳 Penchat Pro 1개월권 결제 (3,900원)</button>
+            <button type="button" class="btn-price-buy secondary" onclick="openCheckoutModal('Penchat Pro 1년 이용권 (365일)', 39000)">Penchat Pro 1년권 결제 (39,000원)</button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 서비스 제공·교환·환불 정책 (전자상거래법 및 PG 심사 필수 명시 사항) -->
-  <section id="policy" class="section">
-    <div class="section-header">
-      <span class="section-tag">Service Policy</span>
-      <h2 class="section-title">서비스 제공 및 환불(청약철회) 안내</h2>
-      <p class="section-desc">큐비오랩은 전자상거래 등에서의 소비자보호에 관한 법률을 준수합니다.</p>
-    </div>
-
+  <!-- 서비스 제공 및 환불 안내 (간결 요약) -->
+  <section id="policy" class="policy-section">
     <div class="policy-grid">
-      <div class="policy-box">
-        <h4>1. 서비스 제공 방식 및 이용 기간</h4>
-        <ul>
-          <li>본 상품은 온라인 웹 소프트웨어(SaaS) 기간제 단건 이용권으로, <strong>비회원 또는 회원 결제 완료 즉시 권한이 활성화</strong>되어 서비스를 이용하실 수 있습니다.</li>
-          <li>각 이용권의 서비스 제공 기간은 <strong>결제일로부터 1개월(30일)</strong>이며, 자동 정기결제되지 않는 단건 이용권입니다. 별도의 실물 배송이 없는 디지털 콘텐츠 서비스입니다.</li>
-        </ul>
+      <div class="policy-card">
+        <h4>서비스 제공 기간 안내</h4>
+        <p>모든 유료 이용권은 온라인 웹 소프트웨어(SaaS) 기간제 단건 이용권(1개월 30일 / 1년 365일)으로, 결제 완료 즉시 권한이 활성화되며 자동 정기결제되지 않습니다.</p>
       </div>
-
-      <div class="policy-box">
-        <h4>2. 청약철회 및 환불 규정</h4>
-        <ul>
-          <li><strong>전액 환불:</strong> 결제일로부터 7일 이내에 서비스 이용 이력이 없는 경우 100% 전액 결제 취소 및 환불이 가능합니다.</li>
-          <li><strong>중도 해지 및 부분 환불:</strong> 결제 후 서비스를 이용한 경우 또는 결제일로부터 7일이 경과한 경우, 전자상거래법 및 소비자분쟁해결기준에 따라 잔여 일수에 해당하는 금액에서 위약금(총 결제금액의 10%)을 공제한 금액을 환불해 드립니다.</li>
-          <li><strong>환불 신청 방법:</strong> 고객센터 이메일(<strong>help@cubiolab.com</strong>) 또는 유선 고객센터(<strong>070-8018-8238</strong>)로 접수 시 영업일 기준 3일 이내 처리됩니다.</li>
-        </ul>
+      <div class="policy-card">
+        <h4>청약철회 및 환불 안내</h4>
+        <p>결제일로부터 7일 이내 미사용 시 100% 전액 환불되며, 중도 해지 시 잔여 일수 일할 계산 금액에서 위약금(10%) 공제 후 환불됩니다. (접수: <strong>help@cubiolab.com</strong> / <strong>070-8018-8238</strong>)</p>
       </div>
     </div>
   </section>
 
-  <!-- 하단 푸터 (사업자 정보 필수 표기) -->
+  <!-- 푸터 -->
   <footer id="footer">
     <div class="footer-inner">
       <div class="footer-top">
-        <div>
-          <div class="footer-brand">큐비오랩 (CubioLab)</div>
-          <p>수학 교육의 시각적 혁신을 연구하는 에듀테크 소프트웨어 기업</p>
-        </div>
+        <div class="footer-brand">큐비오랩 (CubioLab)</div>
         <div class="footer-links">
           <a onclick="openModal('termsModal')">서비스 이용약관</a>
           <a onclick="openModal('privacyModal')">개인정보처리방침</a>
-          <a href="#policy">환불 및 취소규정</a>
+          <a href="#policy">환불규정</a>
         </div>
       </div>
 
       <div class="biz-info">
         <strong>상호명:</strong> 큐비오랩 (CubioLab) &nbsp;|&nbsp;
         <strong>대표자:</strong> 이광철 &nbsp;|&nbsp;
-        <strong>사업자등록번호:</strong> <span id="bizRegNo">354-08-03569</span> &nbsp;|&nbsp;
-        <strong>통신판매업신고번호:</strong> <span id="ecomRegNo">신고 준비중</span><br>
-        <strong>사업장 소재지:</strong> <span id="bizAddress">경기도 양주시 옥정로 222, 6층 606호(옥정동, 스카이타워)</span><br>
-        <strong>고객센터 전화번호:</strong> <span id="bizPhone">070-8018-8238</span> &nbsp;|&nbsp;
-        <strong>이메일(고객문의·개인정보보호책임자):</strong> help@cubiolab.com (이광철)
+        <strong>사업자등록번호:</strong> 354-08-03569 &nbsp;|&nbsp;
+        <strong>통신판매업신고번호:</strong> 신고 준비중<br>
+        <strong>사업장 소재지:</strong> 경기도 양주시 옥정로 222, 6층 606호(옥정동, 스카이타워) &nbsp;|&nbsp;
+        <strong>고객센터:</strong> 070-8018-8238 &nbsp;|&nbsp;
+        <strong>이메일:</strong> help@cubiolab.com
       </div>
 
       <div class="copyright">
@@ -906,28 +1198,28 @@
     </div>
   </footer>
 
-  <!-- 💳 토스페이먼츠 비회원/회원 주문서 & 카드결제 모달 -->
+  <!-- 토스페이먼츠 주문 & 카드결제 모달 -->
   <div id="checkoutModal" class="modal-backdrop">
     <div class="modal-card">
       <div class="modal-header">
-        <h3 id="checkoutTitle">이용권 주문 및 카드결제 (비회원 구매 가능)</h3>
+        <h3 id="checkoutTitle">이용권 카드결제</h3>
         <button class="btn-close-modal" onclick="closeModal('checkoutModal')">✕</button>
       </div>
       <div class="modal-body">
         <div class="checkout-summary-box">
           <div>
             <div class="checkout-summary-title" id="checkoutPlanName">Graphly Pro 1개월 이용권 (30일)</div>
-            <div class="checkout-summary-sub">서비스 제공기간: 결제일로부터 30일 (단건 이용권)</div>
+            <div class="checkout-summary-sub" id="checkoutPlanSub">제공기간: 결제일로부터 30일 (단건 이용권)</div>
           </div>
           <div class="checkout-summary-price" id="checkoutPlanPrice">3,900원</div>
         </div>
 
         <div class="form-field">
-          <label for="checkoutBuyerName">구매자 성명 (비회원 구매 가능)</label>
-          <input type="text" id="checkoutBuyerName" placeholder="구매자 성명을 입력하세요 (미입력 시 비회원 구매)">
+          <label for="checkoutBuyerName">구매자 성명</label>
+          <input type="text" id="checkoutBuyerName" placeholder="구매자 성명 (미입력 시 비회원 구매)">
         </div>
         <div class="form-field">
-          <label for="checkoutBuyerEmail">이메일 주소 (결제 영수증 및 이용권 코드 수신)</label>
+          <label for="checkoutBuyerEmail">이메일 주소 (영수증 수신)</label>
           <input type="email" id="checkoutBuyerEmail" placeholder="example@email.com">
         </div>
         <div class="form-field">
@@ -935,23 +1227,23 @@
           <input type="tel" id="checkoutBuyerPhone" placeholder="010-0000-0000">
         </div>
 
-        <label style="display:flex; align-items:center; gap:8px; font-size:13px; color:#334155; margin: 12px 0 16px; cursor:pointer;">
-          <input type="checkbox" id="chkCheckoutAgree" checked style="width:16px; height:16px;">
-          <span>상품 가격, 제공기간(30일), 서비스 이용약관 및 환불 규정에 동의합니다.</span>
+        <label style="display:flex; align-items:center; gap:8px; font-size:12.5px; color:#334155; margin: 12px 0 14px; cursor:pointer;">
+          <input type="checkbox" id="chkCheckoutAgree" checked style="width:15px; height:15px;">
+          <span>상품 가격, 제공기간, 이용약관 및 환불 규정에 동의합니다.</span>
         </label>
 
-        <button type="button" id="btnTriggerTossPayment" class="btn-plan-buy" onclick="submitCheckoutModalPayment()">
+        <button type="button" id="btnTriggerTossPayment" class="btn-price-buy" onclick="submitCheckoutModalPayment()">
           💳 토스페이먼츠 카드 결제창 열기
         </button>
       </div>
     </div>
   </div>
 
-  <!-- 🔑 일반 이메일 ID / PW 로그인 모달 -->
+  <!-- 로그인 모달 -->
   <div id="loginModal" class="modal-backdrop">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>큐비오랩 통합 계정 로그인</h3>
+        <h3>큐비오랩 계정 로그인</h3>
         <button class="btn-close-modal" onclick="closeModal('loginModal')">✕</button>
       </div>
       <div class="modal-body">
@@ -964,7 +1256,7 @@
             <label for="loginPwInput">비밀번호</label>
             <input type="password" id="loginPwInput" placeholder="비밀번호를 입력하세요" required>
           </div>
-          <button type="submit" id="btnSubmitEmailLogin" class="btn-plan-buy" style="margin-top:8px;">로그인</button>
+          <button type="submit" class="btn-price-buy" style="margin-top:8px;">로그인</button>
         </form>
       </div>
     </div>
@@ -989,9 +1281,9 @@
         <button class="btn-close-modal" onclick="closeModal('termsModal')">✕</button>
       </div>
       <div class="modal-body">
-        <p><strong>제1조 (목적)</strong><br>본 약관은 큐비오랩(이하 "회사")이 제공하는 Graphly 스튜디오 및 관련 웹 소프트웨어 서비스의 이용 조건 및 절차, 회사와 이용자(회원 및 비회원 구매자)의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.</p><br>
-        <p><strong>제2조 (유료서비스 및 이용기간)</strong><br>회사가 제공하는 유료 이용권의 이용기간은 결제일로부터 1개월(30일)이며, 결제 완료 즉시 서비스 권한이 부여됩니다.</p><br>
-        <p><strong>제3조 (청약철회 및 환불)</strong><br>이용자는 결제일로부터 7일 이내에 이용 이력이 없는 경우 전액 환불을 요청할 수 있으며, 이용 이력이 있거나 7일이 경과한 경우 잔여 기간 일할 계산 금액에서 위약금(10%)을 공제한 금액을 환불받을 수 있습니다.</p>
+        <p><strong>제1조 (목적)</strong><br>본 약관은 큐비오랩(이하 "회사")이 제공하는 Graphly, Penchat 및 관련 웹 소프트웨어 서비스의 이용 조건과 절차를 규정함을 목적으로 합니다.</p><br>
+        <p><strong>제2조 (유료서비스 및 이용기간)</strong><br>유료 이용권의 제공기간은 상품에 명시된 기간(30일 또는 365일)이며, 결제 완료 즉시 서비스 권한이 부여됩니다.</p><br>
+        <p><strong>제3조 (청약철회 및 환불)</strong><br>결제일로부터 7일 이내에 이용 이력이 없는 경우 전액 환불이 가능하며, 이용 이력이 있거나 7일이 경과한 경우 잔여 기간 일할 계산 금액에서 위약금(10%)을 공제한 금액을 환불합니다.</p>
       </div>
     </div>
   </div>
@@ -1004,15 +1296,14 @@
         <button class="btn-close-modal" onclick="closeModal('privacyModal')">✕</button>
       </div>
       <div class="modal-body">
-        <p><strong>1. 수집하는 개인정보 항목</strong><br>큐비오랩은 회원가입, 비회원 유료 결제 및 고객상담을 위해 이메일 주소, 성명, 연락처, 결제 기록을 수집·처리합니다.</p><br>
-        <p><strong>2. 개인정보의 보유 및 이용기간</strong><br>회원 탈퇴 시 즉시 파기하며, 관계 법령(전자상거래법 등)에 따라 보존할 필요가 있는 경우 해당 법령에서 정한 기간(대금결제 기록 5년 등) 동안 보관합니다.</p><br>
+        <p><strong>1. 수집하는 개인정보 항목</strong><br>큐비오랩은 회원가입, 유료 결제 및 고객상담을 위해 이메일 주소, 성명, 연락처, 결제 기록을 수집·처리합니다.</p><br>
+        <p><strong>2. 보유 및 이용기간</strong><br>회원 탈퇴 시 즉시 파기하며, 관계 법령(전자상거래법 등)에 따라 보존할 필요가 있는 경우 법정 기간 동안 보관합니다.</p><br>
         <p><strong>3. 개인정보보호책임자</strong><br>성명: 이광철 (대표) / 이메일: help@cubiolab.com / 연락처: 070-8018-8238</p>
       </div>
     </div>
   </div>
 
   <script>
-    // 토스페이먼츠 큐비오랩(q_cubiolkj7e) 정식 테스트 클라이언트 키
     const TOSS_API_CLIENT_KEY = 'test_ck_DnyRpQWGrNaNRPo2mQylVKwv1M9E';
     let selectedPlan = {
       name: 'Graphly Pro 1개월 이용권 (30일)',
@@ -1035,9 +1326,15 @@
       selectedPlan = { name: planName, amount: amount };
       document.getElementById('checkoutPlanName').textContent = planName;
       document.getElementById('checkoutPlanPrice').textContent = amount.toLocaleString('ko-KR') + '원';
+      const subEl = document.getElementById('checkoutPlanSub');
+      if (subEl) {
+        subEl.textContent = planName.indexOf('365') !== -1
+          ? '제공기간: 결제일로부터 365일 (단건 이용권)'
+          : '제공기간: 결제일로부터 30일 (단건 이용권)';
+      }
       if (currentLoggedInUser) {
-        document.getElementById('checkoutBuyerName').value = currentLoggedInUser.name || '테스트회원';
-        document.getElementById('checkoutBuyerEmail').value = currentLoggedInUser.email || 'test@cubiolab.com';
+        document.getElementById('checkoutBuyerName').value = currentLoggedInUser.name || '';
+        document.getElementById('checkoutBuyerEmail').value = currentLoggedInUser.email || '';
       }
       openModal('checkoutModal');
     }
@@ -1059,18 +1356,9 @@
         successUrl: baseUrl + '?paymentStatus=success',
         failUrl: baseUrl + '?paymentStatus=fail'
       }).catch(function (error) {
-        if (error && error.code === 'USER_CANCEL') {
-          return;
-        }
-        alert('결제창 안내: ' + (error && error.message ? error.message : '결제 요청 중 오류가 발생했습니다.'));
+        if (error && error.code === 'USER_CANCEL') return;
+        alert('결제 안내: ' + (error && error.message ? error.message : '결제 요청 중 오류가 발생했습니다.'));
       });
-    }
-
-    function requestTossCardPaymentDirect(planName, amountNumeric) {
-      const amount = Number(String(amountNumeric).replace(/[^0-9]/g, '')) || 3900;
-      const buyerName = (currentLoggedInUser && currentLoggedInUser.name) ? currentLoggedInUser.name : '비회원구매자';
-      const buyerEmail = (currentLoggedInUser && currentLoggedInUser.email) ? currentLoggedInUser.email : 'test@cubiolab.com';
-      triggerTossSdkPayment(planName, amount, buyerName, buyerEmail);
     }
 
     function submitCheckoutModalPayment() {
@@ -1085,22 +1373,14 @@
       triggerTossSdkPayment(selectedPlan.name, selectedPlan.amount, buyerName, buyerEmail);
     }
 
-    function fillTestAccount() {
-      document.getElementById('loginEmailInput').value = 'test@cubiolab.com';
-      document.getElementById('loginPwInput').value = 'toss1234!';
-    }
-
     function handleEmailLogin(e) {
       if (e) e.preventDefault();
       const email = (document.getElementById('loginEmailInput').value || '').trim();
       const pw = (document.getElementById('loginPwInput').value || '').trim();
-      if (!email || !pw) {
-        alert('이메일 아이디와 비밀번호를 입력해 주세요.');
-        return;
-      }
+      if (!email || !pw) return;
       currentLoggedInUser = {
         email: email,
-        name: email.split('@')[0] || '테스트회원'
+        name: email.split('@')[0] || '회원'
       };
       try {
         localStorage.setItem('cubiolab_auth_user', JSON.stringify(currentLoggedInUser));
@@ -1123,7 +1403,7 @@
       const btnLogin = document.getElementById('btnNavLogin');
       if (currentLoggedInUser && currentLoggedInUser.email) {
         if (badge) badge.style.display = 'inline-flex';
-        if (lbl) lbl.textContent = '👤 ' + currentLoggedInUser.email;
+        if (lbl) lbl.textContent = currentLoggedInUser.email;
         if (btnLogin) btnLogin.style.display = 'none';
       } else {
         if (badge) badge.style.display = 'none';
@@ -1145,18 +1425,18 @@
       if (status === 'success') {
         const orderId = params.get('orderId') || '';
         const amount = Number(params.get('amount') || 3900).toLocaleString('ko-KR');
-        document.getElementById('paymentResultTitle').textContent = '✅ 이용권 결제 요청 완료';
+        document.getElementById('paymentResultTitle').textContent = '결제 요청 완료';
         document.getElementById('paymentResultBody').innerHTML =
-          '<p style="margin-bottom:10px;"><strong>토스페이먼츠 카드 결제 인증이 정상적으로 완료되었습니다.</strong></p>' +
+          '<p style="margin-bottom:10px;"><strong>카드 결제 인증이 정상적으로 완료되었습니다.</strong></p>' +
           '<p>주문번호: <code>' + orderId + '</code><br>결제금액: <strong>' + amount + '원</strong></p>' +
-          '<div style="margin-top:16px;"><button class="btn-plan-buy" onclick="closeModal(\'paymentResultModal\')">확인</button></div>';
+          '<div style="margin-top:16px;"><button class="btn-price-buy" onclick="closeModal(\'paymentResultModal\')">확인</button></div>';
         openModal('paymentResultModal');
       } else if (status === 'fail') {
         const msg = params.get('message') || '결제가 취소되었거나 중단되었습니다.';
         document.getElementById('paymentResultTitle').textContent = '결제 중단 안내';
         document.getElementById('paymentResultBody').innerHTML =
           '<p style="margin-bottom:14px;">' + msg + '</p>' +
-          '<button class="btn-plan-buy" onclick="closeModal(\'paymentResultModal\')">확인</button>';
+          '<button class="btn-price-buy" onclick="closeModal(\'paymentResultModal\')">확인</button>';
         openModal('paymentResultModal');
       }
     });

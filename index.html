@@ -441,46 +441,119 @@
       background: #4338ca;
     }
 
-    /* 한눈에 보는 비교 바 */
-    .summary-strip {
+    /* 4대 핵심 차별점 섹션 */
+    .advantage-section {
       max-width: 1120px;
-      margin: 0 auto 72px;
+      margin: 0 auto 76px;
       padding: 0 24px;
     }
 
-    .summary-box {
-      background: #0f172a;
+    .advantage-box {
+      background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
       color: #ffffff;
-      border-radius: 20px;
-      padding: 28px 32px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      border-radius: 24px;
+      padding: 40px 36px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
     }
 
-    .summary-item {
+    .advantage-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .advantage-head-title {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+    }
+
+    .advantage-head-sub {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .advantage-compare-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(37, 99, 235, 0.18);
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      padding: 8px 15px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #bfdbfe;
+    }
+
+    .advantage-compare-pill strong {
+      color: #60a5fa;
+      font-weight: 800;
+    }
+
+    .advantage-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .advantage-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 16px;
+      padding: 22px 24px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 8px;
     }
 
-    .summary-label {
-      font-size: 12px;
-      font-weight: 700;
-      color: #93c5fd;
+    .advantage-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .advantage-label {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #60a5fa;
       text-transform: uppercase;
       letter-spacing: 0.6px;
     }
 
-    .summary-title {
-      font-size: 17px;
-      font-weight: 800;
-      color: #ffffff;
+    .advantage-chip {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 3px 9px;
+      border-radius: 999px;
     }
 
-    .summary-desc {
-      font-size: 13.5px;
-      color: #94a3b8;
+    .advantage-title {
+      font-size: 17.5px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+
+    .advantage-desc {
+      font-size: 13.8px;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .advantage-desc strong {
+      color: #ffffff;
+      font-weight: 700;
     }
 
     /* 요금제 섹션 (간결한 구성 + 토스페이먼츠 연동 유지) */
@@ -855,11 +928,12 @@
     @media (max-width: 860px) {
       .services-grid,
       .pricing-grid,
-      .summary-box,
+      .advantage-grid,
       .policy-grid {
         grid-template-columns: 1fr;
       }
-      .service-card {
+      .service-card,
+      .advantage-box {
         padding: 28px 22px;
       }
       .nav-links a.hide-mobile {
@@ -972,11 +1046,11 @@
             </li>
             <li class="point-item">
               <span class="point-icon">2</span>
-              <div><strong>PDF 문항 캡처 &amp; 판서</strong> — 교재·모의고사 PDF를 바로 열어 문항을 크롭하고 실시간 그래프 카드와 함께 판서합니다.</div>
+              <div><strong>PDF 문항 캡처 &amp; 초경량 음성 판서</strong> — 교재 PDF를 바로 열어 판서·음성 녹화하고, 고화질 투명 PNG 삽도 복사(Ctrl+C)까지 한 화면에서 끝냅니다.</div>
             </li>
             <li class="point-item">
               <span class="point-icon">3</span>
-              <div><strong>원클릭 교재 삽도 복사</strong> — 완성된 그래프를 투명 배경 고화질 PNG로 복사(Ctrl+C)해 한글(HWP)·PPT에 1초 만에 붙여넣습니다.</div>
+              <div><strong>원클릭 링크 공유 &amp; 웹 즉시 조작</strong> — 설치·로그인 없이 링크 하나로 공유하며, 받은 화면에서 그래프를 직접 움직여보고 이어서 필기할 수 있습니다.</div>
             </li>
           </ul>
         </div>
@@ -1026,15 +1100,15 @@
           <ul class="point-list">
             <li class="point-item">
               <span class="point-icon">1</span>
-              <div><strong>5대 초고속 불러오기</strong> — 클립보드 붙여넣기(Ctrl+V), 사진첩, 카메라 촬영, 화면 캡처, PDF를 여백 없이 불러와 손가락·펜으로 즉시 필기합니다.</div>
+              <div><strong>5대 초고속 불러오기</strong> — 붙여넣기(Ctrl+V), 사진첩, 카메라 촬영, 화면 캡처, PDF를 여백 없이 불러와 손가락·펜으로 즉시 필기합니다.</div>
             </li>
             <li class="point-item">
               <span class="point-icon">2</span>
-              <div><strong>필기 + 음성 자동 동기화</strong> — 화면 위에 그리며 말하면 각 필기 획마다 목소리 시점이 기록되어 무거운 영상 없이 가볍게 저장됩니다.</div>
+              <div><strong>동영상 1/50 용량의 필기·음성 녹화</strong> — 무거운 MP4 영상 대신 벡터 필기 획과 목소리 시점만 기록해 인코딩 대기 없이 가볍게 저장됩니다.</div>
             </li>
             <li class="point-item">
               <span class="point-icon">3</span>
-              <div><strong>0초 공유 &amp; 터치 듣기</strong> — 카톡·메시지로 즉시 링크를 공유하고, 상대방은 완성본을 보다가 궁금한 필기만 톡 눌러 바로 설명을 듣습니다.</div>
+              <div><strong>원클릭 링크 &amp; 터치 듣기·이어 쓰기</strong> — 카톡·메시지로 0초 공유하고, 상대방은 가입 없이 궁금한 필기만 톡 눌러 듣거나 바로 첨삭해 회신합니다.</div>
             </li>
           </ul>
         </div>
@@ -1047,23 +1121,65 @@
     </div>
   </section>
 
-  <!-- 핵심 특징 3줄 요약 바 -->
-  <section class="summary-strip">
-    <div class="summary-box">
-      <div class="summary-item">
-        <span class="summary-label">No Install</span>
-        <div class="summary-title">설치 없이 모든 기기에서</div>
-        <p class="summary-desc">PC, 아이패드, 갤럭시탭, 스마트폰 웹 브라우저에서 즉시 작동합니다.</p>
+  <!-- 두 시스템 공통 핵심 강점 (초경량 녹화 · 원클릭 링크 · 무절차 열람 & 웹 즉시 수정) -->
+  <section class="advantage-section">
+    <div class="advantage-box">
+      <div class="advantage-head">
+        <div>
+          <div class="advantage-head-title">무거운 동영상 녹화 대신, 살아있는 웹 노트로</div>
+          <p class="advantage-head-sub">Graphly와 Penchat이 공유하는 차세대 벡터·음성 동기화 엔진</p>
+        </div>
+        <div class="advantage-compare-pill">
+          <span>일반 영상 녹화 수백 MB</span>
+          <span>➔</span>
+          <strong>용량 1/50 수준 · 인코딩 0초</strong>
+        </div>
       </div>
-      <div class="summary-item">
-        <span class="summary-label">Zero Delay</span>
-        <div class="summary-title">120Hz 초저지연 필기 &amp; 음성 싱크</div>
-        <p class="summary-desc">전용 벡터 잉크 엔진과 타임스탬프 동기화로 끊김 없는 판서·설명을 제공합니다.</p>
-      </div>
-      <div class="summary-item">
-        <span class="summary-label">Instant Share</span>
-        <div class="summary-title">링크 한 줄로 즉각 공유</div>
-        <p class="summary-desc">무거운 동영상 인코딩 없이 링크와 QR코드로 1초 만에 전달합니다.</p>
+
+      <div class="advantage-grid">
+        <div class="advantage-card">
+          <div class="advantage-top">
+            <span class="advantage-label">01 · Ultra-Light Size</span>
+            <span class="advantage-chip">기존 영상 대비 1/50 용량</span>
+          </div>
+          <div class="advantage-title">화질은 선명하게, 녹화 용량은 깃털처럼</div>
+          <p class="advantage-desc">
+            화면 픽셀을 통째로 찍는 무거운 MP4 영상이 아니라 <strong>벡터 필기 좌표와 고압축 음성 타임스탬프만 기록</strong>합니다. 긴 설명도 수백 KB~수 MB로 가볍고, 아무리 확대해도 글씨가 깨지지 않습니다.
+          </p>
+        </div>
+
+        <div class="advantage-card">
+          <div class="advantage-top">
+            <span class="advantage-label">02 · One-Click Link</span>
+            <span class="advantage-chip">인코딩·업로드 대기 0초</span>
+          </div>
+          <div class="advantage-title">버튼 한 번으로 끝나는 원클릭 링크 공유</div>
+          <p class="advantage-desc">
+            파일을 저장하고 메신저에 첨부할 필요가 없습니다. 우상단 <strong>[공유] 버튼 한 번</strong>이면 모바일·태블릿에서는 카톡·문자 공유창이 즉시 열리고, PC에서는 링크가 클립보드에 바로 복사됩니다.
+          </p>
+        </div>
+
+        <div class="advantage-card">
+          <div class="advantage-top">
+            <span class="advantage-label">03 · Zero Friction &amp; Tap-to-Hear</span>
+            <span class="advantage-chip">설치·로그인 절차 없음</span>
+          </div>
+          <div class="advantage-title">링크 클릭 즉시 확인 &amp; 궁금한 필기만 터치 재생</div>
+          <p class="advantage-desc">
+            받는 사람은 <strong>앱 설치나 회원가입 없이 링크만 누르면 1초 만에 열람</strong>합니다. 영상을 처음부터 돌려볼 필요 없이, 완성된 필기 중 <strong>궁금한 부분만 톡 누르면 그 순간의 음성 설명이 바로 재생</strong>됩니다.
+          </p>
+        </div>
+
+        <div class="advantage-card">
+          <div class="advantage-top">
+            <span class="advantage-label">04 · Interactive Web Edit</span>
+            <span class="advantage-chip">웹에서 바로 수정·재전달</span>
+          </div>
+          <div class="advantage-title">받은 링크 화면에서 바로 수정하고 다시 전달</div>
+          <p class="advantage-desc">
+            전달받은 노트는 멈춰 있는 화면이 아닙니다. <strong>열어본 웹 화면 위에서 그래프 개형을 직접 움직여보거나, 추가 필기·첨삭을 더해 다시 원클릭 링크로 전달</strong>할 수 있는 양방향 워크스페이스입니다.
+          </p>
+        </div>
       </div>
     </div>
   </section>

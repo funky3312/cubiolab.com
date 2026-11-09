@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>큐비오랩 (CubioLab) — Graphly & Penchat</title>
   <meta name="description" content="큐비오랩(CubioLab)은 직관적인 수학 그래프·판서 스튜디오 Graphly와 필기·음성 설명 메신저 Penchat을 개발·운영하는 소프트웨어 스튜디오입니다.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%230f172a'/%3E%3Cpath d='M20 7L32 13.8V26.2L20 33L8 26.2V13.8L20 7Z' fill='none'/%3E%3Cpath d='M20 7L31.5 13.6L20 20.2L8.5 13.6L20 7Z' fill='%2360a5fa'/%3E%3Cpath d='M8.5 13.6L20 20.2V33L8.5 26.4V13.6Z' fill='%232563eb'/%3E%3Cpath d='M31.5 13.6L20 20.2V33L31.5 26.4V13.6Z' fill='%234f46e5' opacity='0.85'/%3E%3Cpath d='M20 12.2L26.2 15.8L20 19.4L13.8 15.8L20 12.2Z' fill='%23ffffff' opacity='0.92'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -71,42 +72,57 @@
     .brand-logo {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
       text-decoration: none;
       color: var(--text-strong);
     }
 
-    .brand-cube {
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
-      background: linear-gradient(135deg, #0f172a 0%, #2563eb 100%);
-      display: flex;
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      color: #ffffff;
-      font-weight: 800;
-      font-size: 16px;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .brand-logo:hover .brand-mark {
+      transform: translateY(-1px) scale(1.03);
+    }
+
+    .brand-mark svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+
+    .brand-text-group {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
     }
 
     .brand-text {
-      font-size: 19px;
+      font-size: 19.5px;
       font-weight: 800;
       letter-spacing: -0.5px;
+      color: var(--text-strong);
     }
 
     .brand-sub {
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-muted);
-      padding-left: 2px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 24px;
     }
 
     .nav-links a {
@@ -119,46 +135,6 @@
 
     .nav-links a:hover {
       color: var(--graphly-primary);
-    }
-
-    .btn-nav-login {
-      background: var(--bg-subtle);
-      color: var(--text-strong);
-      padding: 7px 14px;
-      border-radius: 8px;
-      font-size: 13.5px;
-      font-weight: 700;
-      border: 1px solid var(--border-color);
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .btn-nav-login:hover {
-      background: #e2e8f0;
-    }
-
-    .user-badge-area {
-      display: none;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--graphly-primary);
-      background: var(--graphly-soft);
-      padding: 5px 12px;
-      border-radius: 999px;
-      border: 1px solid #bfdbfe;
-    }
-
-    .btn-logout-sm {
-      background: #ffffff;
-      color: var(--text-body);
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      padding: 2px 7px;
-      font-size: 11.5px;
-      font-weight: 600;
-      cursor: pointer;
     }
 
     /* 히어로 섹션 */
@@ -897,20 +873,28 @@
   <!-- 상단 네비게이션 -->
   <header>
     <div class="nav-container">
-      <a href="#" class="brand-logo">
-        <div class="brand-cube">C</div>
-        <span class="brand-text">CubioLab</span>
-        <span class="brand-sub">큐비오랩</span>
+      <a href="#" class="brand-logo" aria-label="CubioLab 홈">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- 상단 면 (Bright Sky Blue) -->
+            <path d="M16 3.5L27.5 10.1L16 16.7L4.5 10.1L16 3.5Z" fill="#60A5FA"/>
+            <!-- 좌측 면 (Royal Blue) -->
+            <path d="M4.5 10.1L16 16.7V29.5L4.5 22.9V10.1Z" fill="#2563EB"/>
+            <!-- 우측 면 (Deep Indigo + C-Cutout) -->
+            <path d="M27.5 10.1L16 16.7V29.5L27.5 22.9V19.2L21.2 22.8V17.4L27.5 13.8V10.1Z" fill="#4F46E5"/>
+            <!-- 코어 하이라이트 큐브 -->
+            <path d="M16 8.2L21.5 11.4L16 14.6L10.5 11.4L16 8.2Z" fill="#FFFFFF" fill-opacity="0.92"/>
+          </svg>
+        </span>
+        <span class="brand-text-group">
+          <span class="brand-text">CubioLab</span>
+          <span class="brand-sub">큐비오랩</span>
+        </span>
       </a>
       <nav class="nav-links">
         <a href="#services">서비스</a>
         <a href="#pricing">요금제</a>
-        <a href="#footer" class="hide-mobile">기업 정보</a>
-        <div id="navUserBadge" class="user-badge-area">
-          <span id="lblNavUserEmail">test@cubiolab.com</span>
-          <button type="button" class="btn-logout-sm" onclick="handleLogout()">로그아웃</button>
-        </div>
-        <button id="btnNavLogin" class="btn-nav-login" onclick="openModal('loginModal')">로그인</button>
+        <a href="#footer">기업 정보</a>
       </nav>
     </div>
   </header>
@@ -1239,29 +1223,6 @@
     </div>
   </div>
 
-  <!-- 로그인 모달 -->
-  <div id="loginModal" class="modal-backdrop">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>큐비오랩 계정 로그인</h3>
-        <button class="btn-close-modal" onclick="closeModal('loginModal')">✕</button>
-      </div>
-      <div class="modal-body">
-        <form onsubmit="handleEmailLogin(event)" style="display:flex; flex-direction:column; gap:4px;">
-          <div class="form-field">
-            <label for="loginEmailInput">이메일 아이디</label>
-            <input type="email" id="loginEmailInput" placeholder="이메일 주소를 입력하세요" required>
-          </div>
-          <div class="form-field">
-            <label for="loginPwInput">비밀번호</label>
-            <input type="password" id="loginPwInput" placeholder="비밀번호를 입력하세요" required>
-          </div>
-          <button type="submit" class="btn-price-buy" style="margin-top:8px;">로그인</button>
-        </form>
-      </div>
-    </div>
-  </div>
-
   <!-- 결제 결과 안내 모달 -->
   <div id="paymentResultModal" class="modal-backdrop">
     <div class="modal-card">
@@ -1309,7 +1270,6 @@
       name: 'Graphly Pro 1개월 이용권 (30일)',
       amount: 3900
     };
-    let currentLoggedInUser = null;
 
     function openModal(id) {
       const el = document.getElementById(id);
@@ -1332,10 +1292,6 @@
           ? '제공기간: 결제일로부터 365일 (단건 이용권)'
           : '제공기간: 결제일로부터 30일 (단건 이용권)';
       }
-      if (currentLoggedInUser) {
-        document.getElementById('checkoutBuyerName').value = currentLoggedInUser.name || '';
-        document.getElementById('checkoutBuyerEmail').value = currentLoggedInUser.email || '';
-      }
       openModal('checkoutModal');
     }
 
@@ -1351,8 +1307,8 @@
         amount: Number(amount) || 3900,
         orderId: orderId,
         orderName: orderName || 'Graphly Pro 1개월 이용권 (30일)',
-        customerName: customerName || '비회원구매자',
-        customerEmail: customerEmail || 'test@cubiolab.com',
+        customerName: customerName || '구매자',
+        customerEmail: customerEmail || 'help@cubiolab.com',
         successUrl: baseUrl + '?paymentStatus=success',
         failUrl: baseUrl + '?paymentStatus=fail'
       }).catch(function (error) {
@@ -1367,59 +1323,13 @@
         alert('서비스 이용약관 및 환불 규정에 동의해 주세요.');
         return;
       }
-      const buyerName = (document.getElementById('checkoutBuyerName').value || '비회원구매자').trim();
-      const buyerEmail = (document.getElementById('checkoutBuyerEmail').value || 'test@cubiolab.com').trim();
+      const buyerName = (document.getElementById('checkoutBuyerName').value || '구매자').trim();
+      const buyerEmail = (document.getElementById('checkoutBuyerEmail').value || 'help@cubiolab.com').trim();
       closeModal('checkoutModal');
       triggerTossSdkPayment(selectedPlan.name, selectedPlan.amount, buyerName, buyerEmail);
     }
 
-    function handleEmailLogin(e) {
-      if (e) e.preventDefault();
-      const email = (document.getElementById('loginEmailInput').value || '').trim();
-      const pw = (document.getElementById('loginPwInput').value || '').trim();
-      if (!email || !pw) return;
-      currentLoggedInUser = {
-        email: email,
-        name: email.split('@')[0] || '회원'
-      };
-      try {
-        localStorage.setItem('cubiolab_auth_user', JSON.stringify(currentLoggedInUser));
-      } catch (err) {}
-      syncAuthUI();
-      closeModal('loginModal');
-    }
-
-    function handleLogout() {
-      currentLoggedInUser = null;
-      try {
-        localStorage.removeItem('cubiolab_auth_user');
-      } catch (err) {}
-      syncAuthUI();
-    }
-
-    function syncAuthUI() {
-      const badge = document.getElementById('navUserBadge');
-      const lbl = document.getElementById('lblNavUserEmail');
-      const btnLogin = document.getElementById('btnNavLogin');
-      if (currentLoggedInUser && currentLoggedInUser.email) {
-        if (badge) badge.style.display = 'inline-flex';
-        if (lbl) lbl.textContent = currentLoggedInUser.email;
-        if (btnLogin) btnLogin.style.display = 'none';
-      } else {
-        if (badge) badge.style.display = 'none';
-        if (btnLogin) btnLogin.style.display = 'inline-block';
-      }
-    }
-
     window.addEventListener('DOMContentLoaded', function () {
-      try {
-        const saved = localStorage.getItem('cubiolab_auth_user');
-        if (saved) {
-          currentLoggedInUser = JSON.parse(saved);
-          syncAuthUI();
-        }
-      } catch (err) {}
-
       const params = new URLSearchParams(window.location.search);
       const status = params.get('paymentStatus');
       if (status === 'success') {

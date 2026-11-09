@@ -116,19 +116,47 @@
 
     /* 히어로 */
     .hero {
-      padding: 64px 24px 40px;
+      padding: 72px 24px 52px;
       text-align: center;
       background:
-        radial-gradient(circle at 30% 0%, rgba(37, 99, 235, 0.07) 0%, transparent 45%),
-        radial-gradient(circle at 70% 0%, rgba(79, 70, 229, 0.07) 0%, transparent 45%);
+        radial-gradient(circle at 25% 0%, rgba(37, 99, 235, 0.07) 0%, transparent 50%),
+        radial-gradient(circle at 75% 0%, rgba(79, 70, 229, 0.07) 0%, transparent 50%);
+    }
+
+    .hero-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 13px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--text-body);
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+
+    .hero-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #2563eb;
     }
 
     .hero h1 {
-      font-size: clamp(30px, 4.8vw, 44px);
-      font-weight: 900;
+      font-size: clamp(32px, 5vw, 46px);
+      font-weight: 800;
       letter-spacing: -1.3px;
-      line-height: 1.2;
-      margin-bottom: 12px;
+      line-height: 1.22;
+      color: var(--text-strong);
+      margin-bottom: 16px;
     }
 
     .hero h1 span {
@@ -139,9 +167,55 @@
     }
 
     .hero p {
-      font-size: 16.5px;
+      font-size: 17px;
       color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto 28px;
       font-weight: 500;
+      line-height: 1.55;
+    }
+
+    .hero-shortcuts {
+      display: inline-flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.18s ease;
+    }
+
+    .btn-hero-graphly {
+      background: #0f172a;
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.16);
+    }
+
+    .btn-hero-graphly:hover {
+      background: #1e293b;
+      transform: translateY(-2px);
+    }
+
+    .btn-hero-penchat {
+      background: #ffffff;
+      color: var(--text-strong);
+      border: 1.5px solid #cbd5e1;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    }
+
+    .btn-hero-penchat:hover {
+      border-color: var(--penchat);
+      color: var(--penchat);
+      transform: translateY(-2px);
     }
 
     /* 서비스 2종 카드 */
@@ -546,10 +620,27 @@
     </div>
   </header>
 
-  <!-- 히어로: 딱 한 문장 -->
+  <!-- 히어로 -->
   <section class="hero">
-    <h1>그리며 말하고, <span>링크 하나로 끝냅니다.</span></h1>
-    <p>긴 설명 대신 직접 써보세요. 설치도 로그인도 필요 없습니다.</p>
+    <div class="hero-inner">
+      <div class="hero-pill">
+        <span class="hero-pill-dot"></span>
+        <span>CubioLab Software Studio</span>
+      </div>
+      <h1>복잡한 설명을 가장 직관적으로,<br><span>Graphly</span> &amp; <span>Penchat</span></h1>
+      <p>
+        수식 없이 드래그로 완성하는 수학 그래프 스튜디오와,<br>
+        문서 위 필기·음성을 링크 하나로 전하는 비주얼 메신저를 만듭니다.
+      </p>
+      <div class="hero-shortcuts">
+        <a href="https://graphly.net/" target="_blank" rel="noopener" class="btn-hero btn-hero-graphly">
+          Graphly 실행하기 ↗
+        </a>
+        <a href="https://funky3312.github.io/penchat/" target="_blank" rel="noopener" class="btn-hero btn-hero-penchat">
+          Penchat 실행하기 ↗
+        </a>
+      </div>
+    </div>
   </section>
 
   <!-- 서비스 2종: 한 문장 정의 + 3줄 핵심 키워드 + 바로 실행 -->

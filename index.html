@@ -1,928 +1,663 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html class="scroll-smooth" lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>큐비오랩 (CubioLab) — Graphly & Penchat</title>
-  <meta name="description" content="수식 없이 그리는 수학 스튜디오 Graphly, 필기와 음성을 링크 하나로 전하는 Penchat. 설치와 로그인 없이 바로 경험해 보세요.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%230f172a'/%3E%3Cpath d='M20 7L31.5 13.6L20 20.2L8.5 13.6L20 7Z' fill='%2360a5fa'/%3E%3Cpath d='M8.5 13.6L20 20.2V33L8.5 26.4V13.6Z' fill='%232563eb'/%3E%3Cpath d='M31.5 13.6L20 20.2V33L31.5 26.4V13.6Z' fill='%234f46e5' opacity='0.85'/%3E%3Cpath d='M20 12.2L26.2 15.8L20 19.4L13.8 15.8L20 12.2Z' fill='%23ffffff' opacity='0.92'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>큐비오랩 (CubioLab) — Graphly &amp; Penchat</title>
+  <meta name="description" content="큐비오랩(CubioLab)은 수식 없이 드래그로 완성하는 수학 그래프 스튜디오 Graphly와 문서 위 필기·음성을 링크 하나로 전하는 비주얼 메신저 Penchat을 만듭니다."/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f172a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2.5L20.5 7.4V16.6L12 21.5L3.5 16.6V7.4L12 2.5Z' fill='%23F8FAFC'/%3E%3Cpath d='M12 2.5V12M12 12L20.5 7.4M12 12L3.5 7.4'/%3E%3Cpath d='M12 12V21.5'/%3E%3C/svg%3E"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Inter:wght@400;500;600;700&amp;family=Pretendard:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script src="https://js.tosspayments.com/v1/payment"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary-fixed": "#e2dfff",
+            "on-background": "#0b1c30",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "secondary-container": "#645efb",
+            "secondary": "#4b41e1",
+            "error": "#ba1a1a",
+            "on-error": "#ffffff",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#d3e4fe",
+            "on-primary-fixed": "#131b2e",
+            "tertiary": "#000000",
+            "surface-container": "#e5eeff",
+            "surface-bright": "#f8f9ff",
+            "secondary-fixed-dim": "#c3c0ff",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed-variant": "#3323cc",
+            "tertiary-container": "#00174b",
+            "tertiary-fixed": "#dbe1ff",
+            "on-tertiary": "#ffffff",
+            "surface": "#f8fafc",
+            "inverse-on-surface": "#eaf1ff",
+            "outline-variant": "#c6c6cd",
+            "primary": "#000000",
+            "on-error-container": "#93000a",
+            "outline": "#76777d",
+            "primary-fixed": "#dae2fd",
+            "surface-container-high": "#e2e8f0",
+            "on-tertiary-container": "#497cff",
+            "primary-fixed-dim": "#bec6e0",
+            "on-tertiary-fixed": "#00174b",
+            "on-secondary-container": "#fffbff",
+            "on-secondary-fixed": "#0f0069",
+            "inverse-primary": "#bec6e0",
+            "error-container": "#ffdad6",
+            "surface-dim": "#cbdbf5",
+            "on-primary-container": "#7c839b",
+            "inverse-surface": "#213145",
+            "on-surface-variant": "#45464d",
+            "background": "#f8fafc",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "surface-container-low": "#eff4ff",
+            "on-surface": "#0f172a",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-secondary": "#ffffff",
+            "surface-tint": "#565e74",
+            "surface-variant": "#d3e4fe",
+            "primary-container": "#131b2e"
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.375rem",
+            "xl": "0.625rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "gutter": "1.5rem",
+            "gutter-sm": "1rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "margin-lg": "4rem",
+            "margin": "2rem",
+            "margin-sm": "1rem",
+            "gutter-lg": "2rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem"
+          },
+          fontFamily: {
+            "label-md": ["Pretendard", "Geist", "sans-serif"],
+            "headline-sm": ["Pretendard", "Inter", "sans-serif"],
+            "headline-lg": ["Pretendard", "Inter", "sans-serif"],
+            "code-snippet": ["Geist", "monospace"],
+            "display-hero-mobile": ["Pretendard", "Inter", "sans-serif"],
+            "label-sm": ["Pretendard", "Geist", "sans-serif"],
+            "headline-md": ["Pretendard", "Inter", "sans-serif"],
+            "headline-lg-mobile": ["Pretendard", "Inter", "sans-serif"],
+            "body-md": ["Pretendard", "Inter", "sans-serif"],
+            "body-lg": ["Pretendard", "Inter", "sans-serif"],
+            "body-sm": ["Pretendard", "Inter", "sans-serif"],
+            "display-hero": ["Pretendard", "Inter", "sans-serif"],
+            "mono": ["Geist", "ui-monospace", "SFMono-Regular", "monospace"]
+          },
+          fontSize: {
+            "label-md": ["13px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "500" }],
+            "headline-sm": ["18px", { lineHeight: "24px", letterSpacing: "-0.01em", fontWeight: "500" }],
+            "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "600" }],
+            "code-snippet": ["12px", { lineHeight: "18px", letterSpacing: "-0.01em", fontWeight: "400" }],
+            "display-hero-mobile": ["36px", { lineHeight: "44px", letterSpacing: "-0.025em", fontWeight: "600" }],
+            "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.03em", fontWeight: "500" }],
+            "headline-md": ["22px", { lineHeight: "28px", letterSpacing: "-0.015em", fontWeight: "500" }],
+            "headline-lg-mobile": ["26px", { lineHeight: "34px", letterSpacing: "-0.015em", fontWeight: "600" }],
+            "body-md": ["14px", { lineHeight: "22px", letterSpacing: "-0.005em", fontWeight: "400" }],
+            "body-lg": ["16px", { lineHeight: "26px", letterSpacing: "-0.01em", fontWeight: "400" }],
+            "body-sm": ["13px", { lineHeight: "18px", letterSpacing: "0em", fontWeight: "400" }],
+            "display-hero": ["56px", { lineHeight: "64px", letterSpacing: "-0.03em", fontWeight: "600" }]
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    :root {
-      --bg-page: #f8fafc;
-      --bg-surface: #ffffff;
-      --text-strong: #0f172a;
-      --text-body: #334155;
-      --text-muted: #64748b;
-      --border-color: #e2e8f0;
-      --graphly: #2563eb;
-      --graphly-soft: #eff6ff;
-      --penchat: #4f46e5;
-      --penchat-soft: #eef2ff;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-
     body {
-      background: var(--bg-page);
-      color: var(--text-strong);
-      line-height: 1.45;
-      -webkit-font-smoothing: antialiased;
+      font-family: "Pretendard", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
       word-break: keep-all;
     }
-
-    /* 상단 헤더 */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border-color);
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 1.15rem;
+      vertical-align: middle;
+      line-height: 1;
     }
-
-    .nav-container {
-      max-width: 1060px;
-      margin: 0 auto;
-      height: 60px;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .grid-paper {
+      background-size: 20px 20px;
+      background-image:
+        linear-gradient(to right, rgba(226, 232, 240, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(226, 232, 240, 0.45) 1px, transparent 1px);
     }
-
-    .brand-logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--text-strong);
-    }
-
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 9px;
-      background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.14);
-    }
-
-    .brand-mark svg {
-      width: 22px;
-      height: 22px;
-    }
-
-    .brand-text {
-      font-size: 19px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-
-    .brand-sub {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-      margin-left: 4px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-body);
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .nav-links a:hover { color: var(--graphly); }
-
-    /* 히어로 */
-    .hero {
-      padding: 72px 24px 52px;
-      text-align: center;
-      background:
-        radial-gradient(circle at 25% 0%, rgba(37, 99, 235, 0.07) 0%, transparent 50%),
-        radial-gradient(circle at 75% 0%, rgba(79, 70, 229, 0.07) 0%, transparent 50%);
-    }
-
-    .hero-inner {
-      max-width: 780px;
-      margin: 0 auto;
-    }
-
-    .hero-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 13px;
-      border-radius: 999px;
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      color: var(--text-body);
-      font-size: 12.5px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
-    }
-
-    .hero-pill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #2563eb;
-    }
-
-    .hero h1 {
-      font-size: clamp(32px, 5vw, 46px);
-      font-weight: 800;
-      letter-spacing: -1.3px;
-      line-height: 1.22;
-      color: var(--text-strong);
-      margin-bottom: 16px;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      font-size: 17px;
-      color: var(--text-muted);
-      max-width: 580px;
-      margin: 0 auto 28px;
-      font-weight: 500;
-      line-height: 1.55;
-    }
-
-    .hero-shortcuts {
-      display: inline-flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn-hero {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 24px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.18s ease;
-    }
-
-    .btn-hero-graphly {
-      background: #0f172a;
-      color: #ffffff;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.16);
-    }
-
-    .btn-hero-graphly:hover {
-      background: #1e293b;
-      transform: translateY(-2px);
-    }
-
-    .btn-hero-penchat {
-      background: #ffffff;
-      color: var(--text-strong);
-      border: 1.5px solid #cbd5e1;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
-    }
-
-    .btn-hero-penchat:hover {
-      border-color: var(--penchat);
-      color: var(--penchat);
-      transform: translateY(-2px);
-    }
-
-    /* 서비스 2종 카드 */
-    .services-section {
-      max-width: 1060px;
-      margin: 0 auto;
-      padding: 12px 24px 36px;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-
-    .service-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 22px;
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.04);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-    }
-
-    .service-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
-    }
-
-    .card-graphly:hover { border-color: #93c5fd; }
-    .card-penchat:hover { border-color: #a5b4fc; }
-
-    .service-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 6px;
-    }
-
-    .service-name {
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: -0.8px;
-    }
-
-    .service-badge {
-      font-size: 11.5px;
-      font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 999px;
-    }
-
-    .badge-graphly { background: var(--graphly-soft); color: var(--graphly); }
-    .badge-penchat { background: var(--penchat-soft); color: var(--penchat); }
-
-    .service-one-liner {
-      font-size: 15.5px;
-      font-weight: 700;
-      color: var(--text-body);
-      margin-bottom: 18px;
-    }
-
-    .service-preview {
-      height: 172px;
-      border-radius: 14px;
-      margin-bottom: 18px;
-      border: 1px solid var(--border-color);
-      overflow: hidden;
-    }
-
-    .preview-graphly { background: linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%); }
-    .preview-penchat { background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%); }
-
-    .preview-svg { width: 100%; height: 100%; display: block; }
-
-    .key-tags {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 22px;
-    }
-
-    .key-tags li {
-      font-size: 14.5px;
-      font-weight: 600;
-      color: var(--text-body);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .dot-check {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 900;
-      flex-shrink: 0;
-    }
-
-    .card-graphly .dot-check { background: var(--graphly-soft); color: var(--graphly); }
-    .card-penchat .dot-check { background: var(--penchat-soft); color: var(--penchat); }
-
-    .service-cta {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 14px 18px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 800;
-      text-decoration: none;
-      color: #ffffff;
-      transition: all 0.15s ease;
-    }
-
-    .cta-graphly {
-      background: var(--graphly);
-      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.22);
-    }
-    .cta-graphly:hover { background: #1d4ed8; }
-
-    .cta-penchat {
-      background: var(--penchat);
-      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.22);
-    }
-    .cta-penchat:hover { background: #4338ca; }
-
-    /* 4대 핵심 포인트 (한 줄 압축 바) */
-    .highlights-section {
-      max-width: 1060px;
-      margin: 0 auto 60px;
-      padding: 0 24px;
-    }
-
-    .highlights-bar {
-      background: #0f172a;
-      border-radius: 20px;
-      padding: 24px 26px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .hl-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .hl-badge {
-      font-size: 11.5px;
-      font-weight: 800;
-      color: #60a5fa;
-    }
-
-    .hl-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: -0.3px;
-    }
-
-    .hl-sub {
-      font-size: 13px;
-      color: #94a3b8;
-    }
-
-    /* 심플 요금제 */
-    .pricing-section {
-      background: #ffffff;
-      border-top: 1px solid var(--border-color);
-      border-bottom: 1px solid var(--border-color);
-      padding: 52px 24px;
-    }
-
-    .section-inner {
-      max-width: 1060px;
-      margin: 0 auto;
-    }
-
-    .section-head {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
-    .section-head h2 {
-      font-size: 23px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 4px;
-    }
-
-    .section-head p {
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .price-card {
-      background: var(--bg-page);
-      border: 1.5px solid var(--border-color);
-      border-radius: 16px;
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .price-card.featured {
-      background: #ffffff;
-      border-color: var(--graphly);
-    }
-
-    .price-title {
-      font-size: 17px;
-      font-weight: 800;
-      margin-bottom: 4px;
-    }
-
-    .price-amount {
-      font-size: 25px;
-      font-weight: 900;
-      margin-bottom: 8px;
-    }
-
-    .price-amount span {
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .price-desc {
-      font-size: 13px;
-      color: var(--text-body);
-      margin-bottom: 16px;
-    }
-
-    .btn-price-buy {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 9px;
-      font-size: 13.5px;
-      font-weight: 700;
-      cursor: pointer;
-      border: 1px solid var(--graphly);
-      background: var(--graphly);
-      color: #ffffff;
-      text-align: center;
-      text-decoration: none;
-      display: block;
-    }
-
-    .btn-price-buy.secondary {
-      background: #ffffff;
-      color: var(--text-strong);
-      border-color: #cbd5e1;
-      margin-top: 6px;
-      font-size: 12.5px;
-      padding: 8px 10px;
-    }
-
-    /* 푸터 */
-    footer {
-      background: #0f172a;
-      color: #94a3b8;
-      padding: 36px 24px;
-      font-size: 12.5px;
-    }
-
-    .footer-inner {
-      max-width: 1060px;
-      margin: 0 auto;
-    }
-
-    .footer-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      margin-bottom: 16px;
-    }
-
-    .footer-brand {
-      color: #ffffff;
-      font-size: 15px;
-      font-weight: 800;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: #cbd5e1;
-      text-decoration: none;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .biz-info { line-height: 1.8; }
-    .biz-info strong { color: #cbd5e1; }
-    .copyright { margin-top: 10px; color: #64748b; font-size: 11.5px; }
-
-    /* 모달 */
     .modal-backdrop {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.55);
+      background: rgba(15, 23, 42, 0.4);
       backdrop-filter: blur(4px);
       z-index: 999;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    .modal-backdrop.active { display: flex; }
-    .modal-card {
-      background: #ffffff;
-      border-radius: 16px;
-      max-width: 440px;
-      width: 100%;
-      padding: 24px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
-    }
-    .modal-header {
+    .modal-backdrop.active {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border-color);
-    }
-    .modal-header h3 { font-size: 16px; font-weight: 800; }
-    .btn-close-modal { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-muted); }
-    .modal-body { font-size: 13px; color: var(--text-body); line-height: 1.6; }
-    .form-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
-    .form-field label { font-size: 12px; font-weight: 700; }
-    .form-field input { padding: 8px 10px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13px; }
-    .checkout-summary-box {
-      background: var(--graphly-soft);
-      border: 1px solid #bfdbfe;
-      border-radius: 10px;
-      padding: 12px;
-      margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    @media (max-width: 860px) {
-      .services-grid, .pricing-grid { grid-template-columns: 1fr; }
-      .highlights-bar { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 520px) {
-      .highlights-bar { grid-template-columns: 1fr; }
     }
   </style>
 </head>
-<body>
+<body class="bg-surface text-on-surface font-body-md antialiased selection:bg-slate-900 selection:text-white">
 
-  <!-- 헤더 -->
-  <header>
-    <div class="nav-container">
-      <a href="#" class="brand-logo" aria-label="CubioLab 홈">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16 3.5L27.5 10.1L16 16.7L4.5 10.1L16 3.5Z" fill="#60A5FA"/>
-            <path d="M4.5 10.1L16 16.7V29.5L4.5 22.9V10.1Z" fill="#2563EB"/>
-            <path d="M27.5 10.1L16 16.7V29.5L27.5 22.9V19.2L21.2 22.8V17.4L27.5 13.8V10.1Z" fill="#4F46E5"/>
-            <path d="M16 8.2L21.5 11.4L16 14.6L10.5 11.4L16 8.2Z" fill="#FFFFFF" fill-opacity="0.92"/>
+  <!-- TOP NAVIGATION BAR -->
+  <header class="bg-white/85 backdrop-blur-md border-b border-slate-200/80 top-0 sticky z-50 transition-all duration-150">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 md:px-8 h-14">
+      <!-- Brand Logo / Wordmark -->
+      <a class="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface flex items-center gap-2.5 group" href="#">
+        <!-- Isometric 3D Cube Vector Symbol -->
+        <span class="w-6 h-6 text-slate-900 group-hover:scale-105 transition-transform duration-150">
+          <svg class="w-full h-full stroke-current stroke-[1.7]" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M12 2.5L20.5 7.4V16.6L12 21.5L3.5 16.6V7.4L12 2.5Z" fill="#F8FAFC"></path>
+            <path d="M12 2.5V12M12 12L20.5 7.4M12 12L3.5 7.4"></path>
+            <path d="M12 12V21.5"></path>
+            <path d="M7.75 4.95L16.25 9.85" stroke-dasharray="1 2" stroke-opacity="0.4"></path>
           </svg>
         </span>
-        <span>
-          <span class="brand-text">CubioLab</span>
-          <span class="brand-sub">큐비오랩</span>
-        </span>
+        <span class="font-bold tracking-tight text-slate-900 text-[17px]">CubioLab</span>
+        <span class="text-[11px] font-label-sm text-slate-500 font-medium px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200/80">큐비오랩</span>
       </a>
-      <nav class="nav-links">
-        <a href="#services">서비스</a>
-        <a href="#pricing">요금제</a>
-        <a href="#footer">기업 정보</a>
+
+      <!-- Navigation Links -->
+      <nav class="flex items-center gap-6 md:gap-7">
+        <a class="text-slate-700 font-label-md text-label-md font-medium hover:text-slate-900 transition-colors duration-150" href="#services">서비스</a>
+        <a class="text-slate-500 font-label-md text-label-md hover:text-slate-900 transition-colors duration-150" href="#architecture">핵심 기술</a>
+        <a class="text-slate-500 font-label-md text-label-md hover:text-slate-900 transition-colors duration-150" href="#pricing">요금제</a>
+        <a class="text-slate-500 font-label-md text-label-md hover:text-slate-900 transition-colors duration-150 hidden sm:inline" href="#company">기업 정보</a>
       </nav>
     </div>
   </header>
 
-  <!-- 히어로 -->
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-pill">
-        <span class="hero-pill-dot"></span>
-        <span>CubioLab Software Studio</span>
+  <!-- HERO SECTION -->
+  <section class="relative pt-20 pb-20 md:pt-24 md:pb-24 border-b border-slate-200/80 overflow-hidden bg-gradient-to-b from-white to-slate-50/70">
+    <!-- Subtle Architectural Background Grid lines -->
+    <div class="absolute inset-0 pointer-events-none grid-paper opacity-60"></div>
+    <div class="max-w-4xl mx-auto px-4 md:px-8 text-center relative z-10">
+      <!-- Studio Pill Badge -->
+      <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/95 px-3.5 py-1 text-xs font-label-sm text-slate-600 shadow-2xs">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-900"></span>
+        <span class="font-medium">CubioLab Software Studio</span>
       </div>
-      <h1>복잡한 설명을 가장 직관적으로,<br><span>Graphly</span> &amp; <span>Penchat</span></h1>
-      <p>
-        수식 없이 드래그로 완성하는 수학 그래프 스튜디오와,<br>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 leading-[1.22] mt-6">
+        복잡한 설명을 가장 직관적으로,<br/>
+        <span class="text-slate-900">Graphly &amp; Penchat</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-base md:text-[17px] text-slate-600 max-w-2xl mx-auto leading-relaxed mt-4 font-normal">
+        수식 없이 드래그로 완성하는 수학 그래프 스튜디오와,<br class="hidden sm:inline"/>
         문서 위 필기·음성을 링크 하나로 전하는 비주얼 메신저를 만듭니다.
       </p>
-      <div class="hero-shortcuts">
-        <a href="https://graphly.net/" target="_blank" rel="noopener" class="btn-hero btn-hero-graphly">
-          Graphly 실행하기 ↗
+
+      <!-- Dual CTA Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-3 mt-8">
+        <a class="bg-slate-900 hover:bg-slate-800 text-white font-medium px-5 py-2.5 rounded-lg text-sm transition-all duration-150 shadow-2xs inline-flex items-center gap-1.5 group" href="https://graphly.net/" target="_blank" rel="noopener">
+          <span>Graphly 실행하기</span>
+          <span class="text-xs transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
         </a>
-        <a href="https://funky3312.github.io/penchat/" target="_blank" rel="noopener" class="btn-hero btn-hero-penchat">
-          Penchat 실행하기 ↗
+        <a class="bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-medium px-5 py-2.5 rounded-lg text-sm transition-all duration-150 inline-flex items-center gap-1.5 group shadow-2xs" href="https://funky3312.github.io/penchat/" target="_blank" rel="noopener">
+          <span>Penchat 실행하기</span>
+          <span class="text-xs text-slate-400 group-hover:text-slate-900 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
         </a>
+      </div>
+
+      <!-- Micro Specs Ticker -->
+      <div class="mt-12 pt-6 border-t border-slate-200/70 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 font-label-sm">
+        <span class="inline-flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-slate-400"></span>설치 및 가입 절차 불필요</span>
+        <span class="inline-flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-slate-400"></span>영상 대비 1/50 초경량 벡터 전송</span>
+        <span class="inline-flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-slate-400"></span>웹에서 즉시 열람 및 양방향 수정</span>
       </div>
     </div>
   </section>
 
-  <!-- 서비스 2종: 한 문장 정의 + 3줄 핵심 키워드 + 바로 실행 -->
-  <section id="services" class="services-section">
-    <div class="services-grid">
+  <!-- FLAGSHIP SERVICES BENTO SHOWCASE -->
+  <section class="py-16 md:py-20 border-b border-slate-200/80 bg-white" id="services">
+    <div class="max-w-6xl mx-auto px-4 md:px-8">
+      <!-- Section Header -->
+      <div class="max-w-xl mb-10">
+        <div class="text-[11px] font-mono font-semibold tracking-wider text-slate-400 uppercase mb-1.5">FLAGSHIP SERVICES</div>
+        <h2 class="text-2xl font-bold tracking-tight text-slate-900">시각화와 설명의 효율을 높이는 두 개의 도구</h2>
+      </div>
 
-      <!-- Graphly -->
-      <article class="service-card card-graphly">
-        <div>
-          <div class="service-head">
-            <h2 class="service-name">Graphly</h2>
-            <span class="service-badge badge-graphly">수학 그래프 &amp; 판서</span>
+      <!-- Bento 2-Column Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Left Card: Graphly -->
+        <div class="border border-slate-200 rounded-xl p-6 md:p-7 bg-white flex flex-col justify-between hover:border-slate-300 transition-colors" id="graphly-card">
+          <div>
+            <!-- Top Row -->
+            <div class="flex items-center justify-between gap-4 mb-2">
+              <div class="flex items-center gap-2.5">
+                <h3 class="text-xl font-bold text-slate-900 tracking-tight">Graphly</h3>
+                <span class="bg-slate-100 text-slate-700 border border-slate-200 text-xs px-2.5 py-0.5 rounded-full font-medium">수학 그래프 &amp; 판서</span>
+              </div>
+              <span class="font-mono text-xs text-slate-400">graphly.net</span>
+            </div>
+
+            <!-- One-line summary -->
+            <p class="text-slate-600 text-sm mb-5">수식 입력 없이 드래그로 완성하는 수학 칠판</p>
+
+            <!-- Minimalist UI Preview Window -->
+            <div class="border border-slate-200 rounded-lg bg-white overflow-hidden mb-6 relative">
+              <!-- Window Toolbar -->
+              <div class="h-8 bg-slate-50 border-b border-slate-200 flex items-center justify-between px-3 text-[11px] text-slate-500 font-mono">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+                  <span class="w-2 h-2 rounded-full bg-slate-200"></span>
+                  <span class="w-2 h-2 rounded-full bg-slate-200"></span>
+                  <span class="ml-1.5 text-slate-400">cubic_handle_mode</span>
+                </div>
+                <div class="bg-white px-2 py-0.5 rounded border border-slate-200 text-slate-700 font-medium">
+                  2 : 1 비율 자동 보존
+                </div>
+              </div>
+
+              <!-- Coordinate Grid & Graph Simulation Canvas -->
+              <div class="h-56 relative bg-[#FAFAFA] overflow-hidden select-none">
+                <!-- Grid Lines -->
+                <svg class="absolute inset-0 w-full h-full stroke-slate-200/70" stroke-width="1">
+                  <defs>
+                    <pattern height="28" id="grid-pattern" patternUnits="userSpaceOnUse" width="28">
+                      <path d="M 28 0 L 0 0 0 28" fill="none"></path>
+                    </pattern>
+                  </defs>
+                  <rect fill="url(#grid-pattern)" height="100%" width="100%"></rect>
+                </svg>
+                <!-- Axis Lines & Cubic Curve -->
+                <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 220">
+                  <line stroke="#CBD5E1" stroke-width="1.2" x1="0" x2="400" y1="125" y2="125"></line>
+                  <line stroke="#CBD5E1" stroke-width="1.2" x1="110" x2="110" y1="0" y2="220"></line>
+                  <line stroke="#94A3B8" stroke-dasharray="3 3" stroke-width="1" x1="145" x2="295" y1="52" y2="52"></line>
+                  <line stroke="#94A3B8" stroke-dasharray="3 3" stroke-width="1" x1="295" x2="295" y1="52" y2="156"></line>
+                  <path d="M 55 178 C 110 20, 175 20, 220 104 C 265 188, 330 188, 375 36" fill="none" stroke="#1E293B" stroke-linecap="round" stroke-width="2.5"></path>
+                  <circle cx="145" cy="52" fill="#FFFFFF" r="5" stroke="#0F172A" stroke-width="2.5"></circle>
+                  <circle cx="220" cy="104" fill="#4F46E5" r="4"></circle>
+                  <circle cx="295" cy="156" fill="#FFFFFF" r="5" stroke="#0F172A" stroke-width="2.5"></circle>
+                </svg>
+                <!-- Floating Badge -->
+                <div class="absolute top-3.5 right-3.5 bg-slate-900 text-white px-2.5 py-1 rounded text-[11px] font-medium flex items-center gap-1.5 shadow-xs">
+                  <span class="material-symbols-outlined text-[14px]">content_copy</span>
+                  <span>Ctrl+C 투명 PNG 복사</span>
+                </div>
+                <!-- Control Hint Overlay -->
+                <div class="absolute bottom-3 left-3 bg-white/95 px-2.5 py-1 rounded border border-slate-200 text-[11px] text-slate-600 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                  <span>극대·극소·변곡점 핸들 드래그</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Concise Check Items -->
+            <ul class="space-y-2 text-sm text-slate-700 mb-6">
+              <li class="flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-slate-900 text-base">check</span>
+                <span>드래그 한 번으로 3초 함수 개형 작도</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-slate-900 text-base">check</span>
+                <span>PDF 교재 문항 캡처 &amp; 실시간 음성 판서</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-slate-900 text-base">check</span>
+                <span>Ctrl+C 원클릭 고화질 투명 삽도 복사</span>
+              </li>
+            </ul>
           </div>
-          <p class="service-one-liner">수식 입력 없이 드래그로 완성하는 수학 칠판</p>
 
-          <div class="service-preview preview-graphly" aria-hidden="true">
-            <svg class="preview-svg" viewBox="0 0 480 172" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <line x1="24" y1="108" x2="456" y2="108" stroke="#94a3b8" stroke-width="1.5"/>
-              <line x1="90" y1="14" x2="90" y2="158" stroke="#94a3b8" stroke-width="1.5"/>
-              <path d="M 55 148 C 115 18, 175 18, 235 88 C 295 158, 355 158, 415 26" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round"/>
-              <line x1="145" y1="42" x2="325" y2="42" stroke="#60a5fa" stroke-width="1.2" stroke-dasharray="3 3"/>
-              <line x1="325" y1="42" x2="325" y2="134" stroke="#60a5fa" stroke-width="1.2" stroke-dasharray="3 3"/>
-              <circle cx="145" cy="42" r="6.5" fill="#ffffff" stroke="#2563eb" stroke-width="3"/>
-              <circle cx="235" cy="88" r="5" fill="#2563eb"/>
-              <circle cx="325" cy="134" r="6.5" fill="#ffffff" stroke="#2563eb" stroke-width="3"/>
-              <rect x="108" y="12" width="74" height="22" rx="6" fill="#0f172a"/>
-              <text x="145" y="27" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">극점 드래그</text>
-              <rect x="342" y="122" width="90" height="24" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
-              <text x="387" y="138" fill="#1d4ed8" font-size="11" font-weight="800" text-anchor="middle">Ctrl+C 복사</text>
+          <!-- Bottom CTA link button -->
+          <a class="border-t border-slate-100 pt-4 flex items-center justify-between text-sm font-semibold text-slate-900 hover:text-indigo-600 transition-colors group" href="https://graphly.net/" target="_blank" rel="noopener">
+            <span>Graphly 지금 경험하기</span>
+            <span class="transition-transform group-hover:translate-x-1">↗</span>
+          </a>
+        </div>
+
+        <!-- Right Card: Penchat -->
+        <div class="border border-slate-200 rounded-xl p-6 md:p-7 bg-white flex flex-col justify-between hover:border-slate-300 transition-colors" id="penchat-card">
+          <div>
+            <!-- Top Row -->
+            <div class="flex items-center justify-between gap-4 mb-2">
+              <div class="flex items-center gap-2.5">
+                <h3 class="text-xl font-bold text-slate-900 tracking-tight">Penchat</h3>
+                <span class="bg-slate-100 text-slate-700 border border-slate-200 text-xs px-2.5 py-0.5 rounded-full font-medium">필기 &amp; 음성 메신저</span>
+              </div>
+              <span class="font-mono text-xs text-slate-400">penchat</span>
+            </div>
+
+            <!-- One-line summary -->
+            <p class="text-slate-600 text-sm mb-5">붙여넣고, 그리며 말하고, 링크로 바로 보내는 메신저</p>
+
+            <!-- Minimalist UI Preview Window -->
+            <div class="border border-slate-200 rounded-lg bg-white overflow-hidden mb-6 relative">
+              <!-- Window Toolbar -->
+              <div class="h-8 bg-slate-50 border-b border-slate-200 flex items-center justify-between px-3 text-[11px] text-slate-500 font-mono">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+                  <span class="w-2 h-2 rounded-full bg-slate-200"></span>
+                  <span class="w-2 h-2 rounded-full bg-slate-200"></span>
+                  <span class="ml-1.5 text-slate-400">voice_ink_sync</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                  <span class="text-slate-700 font-medium">00:38 녹화됨</span>
+                </div>
+              </div>
+
+              <!-- Document & Visual Annotations Canvas -->
+              <div class="h-56 relative bg-[#FAFAFA] p-4 flex flex-col justify-between overflow-hidden select-none">
+                <div class="bg-white p-3.5 rounded border border-slate-200/90 relative">
+                  <div class="text-[10px] text-slate-400 font-mono mb-1">DOCUMENT STAGE · FULL FIT</div>
+                  <div class="text-xs text-slate-800 leading-relaxed relative">
+                    최고차항의 계수가 1인 삼차함수 <span class="font-mono font-medium">f(x)</span>에 대하여,
+                    <span class="relative inline-block px-1">
+                      <span class="absolute inset-0 bg-yellow-200/65 rounded"></span>
+                      <span class="relative font-semibold text-slate-900">함수 g(x) = f(x) - f'(1)(x-1)</span>
+                    </span>
+                    이 오직 하나의 극값을 가질 때 값을 구하시오.
+                  </div>
+                  <!-- Hand-drawn Red Pen Annotation -->
+                  <svg class="absolute -right-1 -bottom-2.5 w-28 h-12 pointer-events-none" viewBox="0 0 120 50">
+                    <ellipse cx="60" cy="25" fill="none" rx="48" ry="16" stroke="#DC2626" stroke-linecap="round" stroke-width="1.8" transform="rotate(-3 60 25)"></ellipse>
+                  </svg>
+                </div>
+
+                <!-- Interactive Bottom Bar -->
+                <div class="flex items-center justify-between gap-2">
+                  <div class="bg-white px-2.5 py-1 rounded border border-slate-200 text-[11px] text-slate-700 flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[14px] text-slate-900">touch_app</span>
+                    <span class="font-medium">필기 터치 시 해당 시점 음성 즉시 재생</span>
+                  </div>
+                  <div class="bg-slate-900 text-white px-2.5 py-1 rounded text-[11px] font-medium flex items-center gap-1">
+                    <span>공유</span>
+                    <span>↗</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Concise Check Items -->
+            <ul class="space-y-2 text-sm text-slate-700 mb-6">
+              <li class="flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-slate-900 text-base">check</span>
+                <span>스샷·사진·카메라·PDF 여백 없이 1초 불러오기</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-slate-900 text-base">check</span>
+                <span>궁금한 필기만 톡 눌러 바로 설명 듣기</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-slate-900 text-base">check</span>
+                <span>원클릭 링크로 카톡·문자 0초 공유</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Bottom CTA link button -->
+          <a class="border-t border-slate-100 pt-4 flex items-center justify-between text-sm font-semibold text-slate-900 hover:text-indigo-600 transition-colors group" href="https://funky3312.github.io/penchat/" target="_blank" rel="noopener">
+            <span>Penchat 지금 경험하기</span>
+            <span class="transition-transform group-hover:translate-x-1">↗</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CORE TECHNOLOGY 4-COLUMN ARCHITECTURAL STRIP -->
+  <section class="py-16 md:py-20 border-b border-slate-200/80 bg-surface" id="architecture">
+    <div class="max-w-6xl mx-auto px-4 md:px-8">
+      <!-- Section Header -->
+      <div class="max-w-xl mb-10">
+        <div class="text-[11px] font-mono font-semibold tracking-wider text-slate-400 uppercase mb-1.5">CORE ARCHITECTURE</div>
+        <h2 class="text-2xl font-bold tracking-tight text-slate-900">무거운 동영상을 대체하는 4가지 핵심 기술</h2>
+      </div>
+
+      <!-- 4-Column Connected Architectural Grid -->
+      <div class="border border-slate-200 divide-y md:divide-y-0 md:divide-x divide-slate-200 bg-white rounded-xl overflow-hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+        <div class="p-6 flex flex-col justify-between">
+          <div>
+            <div class="font-mono text-xs text-slate-400 font-semibold mb-2.5">01</div>
+            <h4 class="text-[15px] font-bold text-slate-900 mb-1.5">1/50 초경량 녹화</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">벡터 필기·음성만 기록해 깨짐 없이 가볍게 (영상 대비 1/50 용량)</p>
+          </div>
+          <div class="mt-5 pt-3 border-t border-slate-100 text-[11px] font-mono text-slate-400">Vector Stream Sync</div>
+        </div>
+
+        <div class="p-6 flex flex-col justify-between">
+          <div>
+            <div class="font-mono text-xs text-slate-400 font-semibold mb-2.5">02</div>
+            <h4 class="text-[15px] font-bold text-slate-900 mb-1.5">원클릭 링크 공유</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">인코딩 대기 0초, 버튼 하나로 카톡·문자 즉시 전송</p>
+          </div>
+          <div class="mt-5 pt-3 border-t border-slate-100 text-[11px] font-mono text-slate-400">Zero Encode Wait</div>
+        </div>
+
+        <div class="p-6 flex flex-col justify-between">
+          <div>
+            <div class="font-mono text-xs text-slate-400 font-semibold mb-2.5">03</div>
+            <h4 class="text-[15px] font-bold text-slate-900 mb-1.5">무설치 · 무로그인</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">별도 절차 없이 링크만 누르면 모든 기기에서 1초 열람</p>
+          </div>
+          <div class="mt-5 pt-3 border-t border-slate-100 text-[11px] font-mono text-slate-400">Instant Web Viewer</div>
+        </div>
+
+        <div class="p-6 flex flex-col justify-between">
+          <div>
+            <div class="font-mono text-xs text-slate-400 font-semibold mb-2.5">04</div>
+            <h4 class="text-[15px] font-bold text-slate-900 mb-1.5">웹에서 즉시 수정</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">받은 링크 화면에 바로 이어 그리고 다시 링크로 회신</p>
+          </div>
+          <div class="mt-5 pt-3 border-t border-slate-100 text-[11px] font-mono text-slate-400">Bi-directional Edit</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIMPLE PRICING SECTION -->
+  <section class="py-16 md:py-20 border-b border-slate-200/80 bg-white" id="pricing">
+    <div class="max-w-6xl mx-auto px-4 md:px-8">
+      <!-- Section Header -->
+      <div class="max-w-xl mb-10">
+        <div class="text-[11px] font-mono font-semibold tracking-wider text-slate-400 uppercase mb-1.5">PRICING</div>
+        <h2 class="text-2xl font-bold tracking-tight text-slate-900">단정하고 합리적인 요금제</h2>
+      </div>
+
+      <!-- 3 Understated Pricing Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 1: Free -->
+        <div class="border border-slate-200 rounded-xl p-6 bg-white flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-mono font-semibold uppercase text-slate-400">ENTRY</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">기본</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1.5">Free (기본 무료)</h3>
+            <div class="text-2xl font-bold text-slate-900 tracking-tight mb-3">0원 <span class="text-xs font-normal text-slate-500">/ 평생 무료</span></div>
+            <p class="text-xs text-slate-600 leading-relaxed mb-6">모든 작도·필기·음성 녹화·기기 저장 무료 + 클라우드 100MB</p>
+          </div>
+          <a href="https://graphly.net/" target="_blank" rel="noopener" class="w-full bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-medium py-2 rounded-lg text-xs text-center transition-colors block">
+            무료로 시작하기
+          </a>
+        </div>
+
+        <!-- Card 2: Graphly Pro -->
+        <div class="border border-slate-900 rounded-xl p-6 bg-white flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-mono font-semibold uppercase text-slate-900">GRAPHLY PRO</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-900 text-white font-medium">강사용 추천</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1.5">Graphly Pro</h3>
+            <div class="text-2xl font-bold text-slate-900 tracking-tight mb-3">3,900원 <span class="text-xs font-normal text-slate-500">/ 30일 (VAT 포함)</span></div>
+            <p class="text-xs text-slate-600 leading-relaxed mb-6">무제한 프리셋 · 클라우드 보관함 확장 · 수업 링크 &amp; QR 공유</p>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" onclick="openCheckoutModal('Graphly Pro 1개월 이용권 (30일)', 3900)" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium py-2 rounded-lg transition-colors">
+              1개월권 (3,900원)
+            </button>
+            <button type="button" onclick="openCheckoutModal('Graphly Pro 1년 이용권 (365일)', 39000)" class="bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 text-xs font-medium py-2 rounded-lg transition-colors">
+              1년권 (39,000원)
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3: Penchat Pro -->
+        <div class="border border-slate-200 rounded-xl p-6 bg-white flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-mono font-semibold uppercase text-slate-400">PENCHAT PRO</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">메신저 확장</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1.5">Penchat Pro</h3>
+            <div class="text-2xl font-bold text-slate-900 tracking-tight mb-3">3,900원 <span class="text-xs font-normal text-slate-500">/ 30일 (VAT 포함)</span></div>
+            <p class="text-xs text-slate-600 leading-relaxed mb-6">터치 듣기 공유 링크 무제한 · 대용량 클라우드 보관함</p>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" onclick="openCheckoutModal('Penchat Pro 1개월 이용권 (30일)', 3900)" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium py-2 rounded-lg transition-colors">
+              1개월권 (3,900원)
+            </button>
+            <button type="button" onclick="openCheckoutModal('Penchat Pro 1년 이용권 (365일)', 39000)" class="bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 text-xs font-medium py-2 rounded-lg transition-colors">
+              1년권 (39,000원)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINIMAL KOREAN BUSINESS FOOTER -->
+  <footer class="bg-white" id="company">
+    <div class="max-w-6xl mx-auto px-4 md:px-8 py-12">
+      <!-- Upper Footer Row -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <span class="w-4 h-4 text-slate-900">
+            <svg class="w-full h-full stroke-current stroke-[1.8]" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M12 2.5L20.5 7.4V16.6L12 21.5L3.5 16.6V7.4L12 2.5Z" fill="#F8FAFC"></path>
+              <path d="M12 2.5V12M12 12L20.5 7.4M12 12L3.5 7.4"></path>
+              <path d="M12 12V21.5"></path>
             </svg>
-          </div>
-
-          <ul class="key-tags">
-            <li><span class="dot-check">✓</span>드래그 한 번으로 3초 함수 개형 작도</li>
-            <li><span class="dot-check">✓</span>PDF 교재 문항 캡처 &amp; 실시간 음성 판서</li>
-            <li><span class="dot-check">✓</span>Ctrl+C 원클릭 고화질 투명 삽도 복사</li>
-          </ul>
+          </span>
+          <span class="font-semibold text-sm text-slate-900">CubioLab</span>
+          <span class="text-xs text-slate-400 ml-1">큐비오랩</span>
         </div>
 
-        <a href="https://graphly.net/" target="_blank" rel="noopener" class="service-cta cta-graphly">
-          Graphly 지금 경험하기 ↗
-        </a>
-      </article>
-
-      <!-- Penchat -->
-      <article class="service-card card-penchat">
-        <div>
-          <div class="service-head">
-            <h2 class="service-name">Penchat</h2>
-            <span class="service-badge badge-penchat">필기 &amp; 음성 메신저</span>
-          </div>
-          <p class="service-one-liner">붙여넣고, 그리며 말하고, 링크로 바로 보내는 메신저</p>
-
-          <div class="service-preview preview-penchat" aria-hidden="true">
-            <svg class="preview-svg" viewBox="0 0 480 172" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="46" y="16" width="388" height="140" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-              <rect x="70" y="36" width="130" height="9" rx="4.5" fill="#cbd5e1"/>
-              <rect x="70" y="54" width="230" height="7" rx="3.5" fill="#e2e8f0"/>
-              <rect x="70" y="68" width="200" height="7" rx="3.5" fill="#e2e8f0"/>
-              <rect x="66" y="88" width="180" height="15" rx="4" fill="#fef08a"/>
-              <rect x="70" y="92" width="170" height="7" rx="3.5" fill="#475569"/>
-              <path d="M 272 96 C 292 78, 336 78, 348 98 C 358 114, 310 126, 276 112 C 254 102, 262 84, 290 82" stroke="#ef4444" stroke-width="2.8" stroke-linecap="round" fill="none"/>
-              <rect x="256" y="28" width="74" height="22" rx="11" fill="#fef2f2" stroke="#fecaca"/>
-              <circle cx="270" cy="39" r="3.5" fill="#ef4444"/>
-              <text x="298" y="43" fill="#dc2626" font-size="10.5" font-weight="800" text-anchor="middle">00:38</text>
-              <rect x="338" y="28" width="74" height="22" rx="11" fill="#4f46e5"/>
-              <text x="375" y="43" fill="#ffffff" font-size="10.5" font-weight="800" text-anchor="middle">📤 공유</text>
-              <rect x="248" y="120" width="164" height="24" rx="7" fill="#0f172a"/>
-              <text x="330" y="136" fill="#ffffff" font-size="10.5" font-weight="700" text-anchor="middle">👆 필기 터치 시 음성 즉시 재생</text>
-            </svg>
-          </div>
-
-          <ul class="key-tags">
-            <li><span class="dot-check">✓</span>스샷·사진·카메라·PDF 여백 없이 1초 불러오기</li>
-            <li><span class="dot-check">✓</span>궁금한 필기만 톡 눌러 바로 설명 듣기</li>
-            <li><span class="dot-check">✓</span>원클릭 링크로 카톡·문자 0초 공유</li>
-          </ul>
-        </div>
-
-        <a href="https://funky3312.github.io/penchat/" target="_blank" rel="noopener" class="service-cta cta-penchat">
-          Penchat 지금 경험하기 ↗
-        </a>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- 4대 강점: 한 줄 요약 바 -->
-  <section class="highlights-section">
-    <div class="highlights-bar">
-      <div class="hl-item">
-        <span class="hl-badge">1/50 ULTRA-LIGHT</span>
-        <div class="hl-title">영상 대비 1/50 초경량</div>
-        <p class="hl-sub">벡터 필기·음성만 기록해 깨짐 없이 가볍게</p>
-      </div>
-      <div class="hl-item">
-        <span class="hl-badge">0s ONE-CLICK LINK</span>
-        <div class="hl-title">원클릭 링크 즉시 공유</div>
-        <p class="hl-sub">인코딩 대기 없이 버튼 하나로 바로 전송</p>
-      </div>
-      <div class="hl-item">
-        <span class="hl-badge">NO INSTALL · NO LOGIN</span>
-        <div class="hl-title">별도 절차 없이 바로 열람</div>
-        <p class="hl-sub">링크만 누르면 모든 기기에서 1초 오픈</p>
-      </div>
-      <div class="hl-item">
-        <span class="hl-badge">LIVE WEB EDIT</span>
-        <div class="hl-title">웹에서 바로 수정·재전달</div>
-        <p class="hl-sub">받은 화면에 이어 그리고 다시 링크로 회신</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 심플 요금제 -->
-  <section id="pricing" class="pricing-section">
-    <div class="section-inner">
-      <div class="section-head">
-        <h2>요금제</h2>
-        <p>기본 기능은 평생 무료, 클라우드와 무제한 공유가 필요할 때만 Pro로 시작하세요.</p>
-      </div>
-
-      <div class="pricing-grid">
-        <div class="price-card">
-          <div>
-            <div class="price-title">Free (기본 무료)</div>
-            <div class="price-amount">0원 <span>/ 평생 무료</span></div>
-            <p class="price-desc">모든 작도·필기·음성 녹화·기기 저장 무료 + 클라우드 100MB</p>
-          </div>
-          <a href="https://graphly.net/" target="_blank" rel="noopener" class="btn-price-buy secondary">무료로 시작하기</a>
-        </div>
-
-        <div class="price-card featured">
-          <div>
-            <div class="price-title">Graphly Pro</div>
-            <div class="price-amount">3,900원 <span>/ 1개월(30일) · VAT 포함</span></div>
-            <p class="price-desc">무제한 프리셋 · 클라우드 보관함 확장 · 수업 링크 &amp; QR 공유<br><strong style="color:var(--graphly); font-size:12px;">⚡ 결제 완료 즉시 이용 가능 (제공기간: 결제일로부터 1개월)</strong></p>
-          </div>
-          <div>
-            <button type="button" class="btn-price-buy" onclick="openCheckoutModal('Graphly Pro 1개월 이용권 (30일)', 3900)">1개월권 구독/결제 (3,900원)</button>
-            <button type="button" class="btn-price-buy secondary" onclick="openCheckoutModal('Graphly Pro 1년 이용권 (365일)', 39000)">1년권 결제 (39,000원 · 365일 제공)</button>
-          </div>
-        </div>
-
-        <div class="price-card">
-          <div>
-            <div class="price-title">Penchat Pro</div>
-            <div class="price-amount">3,900원 <span>/ 1개월(30일) · VAT 포함</span></div>
-            <p class="price-desc">터치 듣기 공유 링크 무제한 · 대용량 클라우드 보관함<br><strong style="color:var(--penchat); font-size:12px;">⚡ 결제 완료 즉시 이용 가능 (제공기간: 결제일로부터 1개월)</strong></p>
-          </div>
-          <div>
-            <button type="button" class="btn-price-buy" style="background:var(--penchat); border-color:var(--penchat);" onclick="openCheckoutModal('Penchat Pro 1개월 이용권 (30일)', 3900)">1개월권 구독/결제 (3,900원)</button>
-            <button type="button" class="btn-price-buy secondary" onclick="openCheckoutModal('Penchat Pro 1년 이용권 (365일)', 39000)">1년권 결제 (39,000원 · 365일 제공)</button>
-          </div>
+        <!-- Regulatory & Service Policy Links -->
+        <div class="flex flex-wrap items-center gap-5 text-xs text-slate-500">
+          <button type="button" onclick="openModal('termsModal')" class="hover:text-slate-900 transition-colors cursor-pointer">이용약관</button>
+          <button type="button" onclick="openModal('privacyModal')" class="font-medium text-slate-800 hover:text-slate-900 transition-colors cursor-pointer">개인정보처리방침</button>
+          <button type="button" onclick="openModal('policyModal')" class="hover:text-slate-900 transition-colors cursor-pointer">환불규정</button>
         </div>
       </div>
 
-      <!-- SaaS 서비스 제공 기간 및 환불 정책 필수 명시 (본문 직접 노출) -->
-      <div style="margin-top:20px; padding:16px 20px; background:var(--bg-page); border:1px solid var(--border-color); border-radius:12px; font-size:13px; color:var(--text-body); line-height:1.65;">
-        <div><strong>📌 서비스 제공 기간 안내:</strong> 모든 유료 요금제는 실물 배송이 없는 디지털 소프트웨어(SaaS) 상품으로, <strong>결제 완료 즉시 이용 가능하며, 결제일로부터 1개월(30일, 1년권은 365일)간 서비스가 제공됩니다.</strong></div>
-        <div style="margin-top:4px;"><strong>📌 환불 및 해지 정책 안내:</strong> 결제일로부터 7일 이내 이용 이력이 없는 경우 100% 전액 환불(청약철회)되며, 이용 이력이 있거나 중도 해지 시 잔여 이용일수 일할 계산 금액에서 위약금(10%)을 공제한 후 환불됩니다. <a onclick="openModal('policyModal')" style="color:var(--graphly); font-weight:700; text-decoration:underline; cursor:pointer; margin-left:4px;">[환불규정 자세히 보기]</a></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 푸터 -->
-  <footer id="footer">
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand">큐비오랩 (CubioLab)</div>
-        <div class="footer-links">
-          <a onclick="openModal('termsModal')">이용약관</a>
-          <a onclick="openModal('privacyModal')">개인정보처리방침</a>
-          <a onclick="openModal('policyModal')">환불규정</a>
+      <!-- Bottom Business Details & Copyright -->
+      <div class="pt-6 flex flex-col md:flex-row justify-between gap-4 text-xs text-slate-500 leading-relaxed">
+        <div class="space-y-1">
+          <p>
+            상호명: 큐비오랩 (CubioLab) &nbsp;|&nbsp; 대표자: 이광철 &nbsp;|&nbsp; 사업자등록번호: 354-08-03569 &nbsp;|&nbsp; 통신판매업신고번호: 신고 준비중
+          </p>
+          <p class="text-slate-400">
+            주소: 경기도 양주시 옥정로 222, 6층 606호(옥정동, 스카이타워) &nbsp;|&nbsp; 고객센터: 070-8018-8238 &nbsp;|&nbsp; 이메일: help@cubiolab.com
+          </p>
         </div>
-      </div>
-
-      <div class="biz-info">
-        <strong>상호명:</strong> 큐비오랩 &nbsp;|&nbsp;
-        <strong>대표자 성명:</strong> 이광철 &nbsp;|&nbsp;
-        <strong>사업자등록번호:</strong> 354-08-03569 &nbsp;|&nbsp;
-        <strong>통신판매업 신고번호:</strong> 제 2026-경기양주-3241 호<br>
-        <strong>사업장 주소:</strong> 경기도 양주시 옥정로 222, 6층 606호(옥정동, 스카이타워) &nbsp;|&nbsp;
-        <strong>고객센터 전화번호:</strong> 070-8018-8238 &nbsp;|&nbsp;
-        <strong>이메일:</strong> help@cubiolab.com
-      </div>
-
-      <div class="copyright">
-        Copyright © 2026 CubioLab. All rights reserved.
+        <div class="text-slate-400 whitespace-nowrap self-start md:self-end">
+          © 2026 CubioLab. All rights reserved.
+        </div>
       </div>
     </div>
   </footer>
 
   <!-- 카드결제 모달 -->
   <div id="checkoutModal" class="modal-backdrop">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>이용권 카드결제</h3>
-        <button class="btn-close-modal" onclick="closeModal('checkoutModal')">✕</button>
+    <div class="bg-white border border-slate-200 rounded-xl max-w-md w-full p-6 shadow-xl">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+        <h3 class="text-base font-bold text-slate-900">이용권 카드결제</h3>
+        <button type="button" class="text-slate-400 hover:text-slate-700 text-lg" onclick="closeModal('checkoutModal')">✕</button>
       </div>
-      <div class="modal-body">
-        <div class="checkout-summary-box">
+      <div class="space-y-3 text-xs text-slate-600">
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3.5 flex items-center justify-between">
           <div>
-            <div style="font-size:14px; font-weight:800;" id="checkoutPlanName">Graphly Pro 1개월 이용권 (30일)</div>
-            <div style="font-size:11.5px; color:#64748b;" id="checkoutPlanSub">결제 완료 즉시 이용 가능 · 결제일로부터 1개월(30일)간 서비스 제공</div>
+            <div class="text-sm font-bold text-slate-900" id="checkoutPlanName">Graphly Pro 1개월 이용권 (30일)</div>
+            <div class="text-[11px] text-slate-500 mt-0.5" id="checkoutPlanSub">제공기간: 결제일로부터 30일 (단건 이용권)</div>
           </div>
-          <div style="font-size:19px; font-weight:800; color:var(--graphly);" id="checkoutPlanPrice">3,900원</div>
+          <div class="text-lg font-bold text-slate-900" id="checkoutPlanPrice">3,900원</div>
         </div>
-        <div class="form-field">
-          <label for="checkoutBuyerName">구매자 성명</label>
-          <input type="text" id="checkoutBuyerName" placeholder="구매자 성명">
+        <div>
+          <label class="block text-xs font-medium text-slate-700 mb-1" for="checkoutBuyerName">구매자 성명</label>
+          <input type="text" id="checkoutBuyerName" placeholder="구매자 성명" class="w-full rounded-lg border-slate-300 text-xs py-2 px-3 focus:border-slate-900 focus:ring-slate-900"/>
         </div>
-        <div class="form-field">
-          <label for="checkoutBuyerEmail">이메일 주소 (영수증 수신)</label>
-          <input type="email" id="checkoutBuyerEmail" placeholder="example@email.com">
+        <div>
+          <label class="block text-xs font-medium text-slate-700 mb-1" for="checkoutBuyerEmail">이메일 주소 (영수증 수신)</label>
+          <input type="email" id="checkoutBuyerEmail" placeholder="example@email.com" class="w-full rounded-lg border-slate-300 text-xs py-2 px-3 focus:border-slate-900 focus:ring-slate-900"/>
         </div>
-        <label style="display:flex; align-items:center; gap:7px; font-size:12px; margin: 10px 0 12px; cursor:pointer;">
-          <input type="checkbox" id="chkCheckoutAgree" checked>
+        <label class="flex items-center gap-2 pt-1 cursor-pointer text-slate-700">
+          <input type="checkbox" id="chkCheckoutAgree" checked class="rounded border-slate-300 text-slate-900 focus:ring-slate-900"/>
           <span>상품 가격, 제공기간 및 환불 규정에 동의합니다.</span>
         </label>
-        <button type="button" class="btn-price-buy" onclick="submitCheckoutModalPayment()">💳 토스페이먼츠 카드 결제하기</button>
+        <button type="button" onclick="submitCheckoutModalPayment()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-2.5 rounded-lg text-xs transition-colors mt-2">
+          토스페이먼츠 카드 결제하기
+        </button>
       </div>
-    </div>
-  </div>
-
-  <!-- 결제 결과 모달 -->
-  <div id="paymentResultModal" class="modal-backdrop">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 id="paymentResultTitle">결제 안내</h3>
-        <button class="btn-close-modal" onclick="closeModal('paymentResultModal')">✕</button>
-      </div>
-      <div class="modal-body" id="paymentResultBody"></div>
     </div>
   </div>
 
   <!-- 이용약관 모달 -->
   <div id="termsModal" class="modal-backdrop">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>서비스 이용약관</h3>
-        <button class="btn-close-modal" onclick="closeModal('termsModal')">✕</button>
+    <div class="bg-white border border-slate-200 rounded-xl max-w-md w-full p-6 shadow-xl">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+        <h3 class="text-base font-bold text-slate-900">서비스 이용약관</h3>
+        <button type="button" class="text-slate-400 hover:text-slate-700 text-lg" onclick="closeModal('termsModal')">✕</button>
       </div>
-      <div class="modal-body">
-        <p><strong>제1조 (목적)</strong><br>본 약관은 큐비오랩(이하 "회사")이 제공하는 Graphly, Penchat 웹 소프트웨어 서비스의 이용 조건과 절차를 규정합니다.</p><br>
-        <p><strong>제2조 (서비스 제공 기간)</strong><br>유료 이용권은 결제 완료 즉시 이용 가능하며, 결제일로부터 선택한 이용기간(1개월권 30일, 1년권 365일) 동안 서비스가 제공됩니다.</p><br>
-        <p><strong>제3조 (청약철회 및 중도 해지·환불)</strong><br>결제일로부터 7일 이내 서비스 이용 이력이 없는 경우 100% 전액 환불이 가능하며, 이용 이력이 있거나 중도 해지를 요청하는 경우 잔여 이용일수 일할 계산 금액에서 위약금(10%)을 공제한 후 환불합니다.</p>
+      <div class="text-xs text-slate-600 leading-relaxed space-y-2">
+        <p><strong class="text-slate-900">제1조 (목적)</strong> 본 약관은 큐비오랩이 제공하는 Graphly, Penchat 웹 서비스의 이용 조건을 규정합니다.</p>
+        <p><strong class="text-slate-900">제2조 (이용기간)</strong> 유료 이용권은 단건 기간제(30일/365일) 상품으로 결제 즉시 활성화됩니다.</p>
       </div>
     </div>
   </div>
 
   <!-- 개인정보처리방침 모달 -->
   <div id="privacyModal" class="modal-backdrop">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>개인정보처리방침</h3>
-        <button class="btn-close-modal" onclick="closeModal('privacyModal')">✕</button>
+    <div class="bg-white border border-slate-200 rounded-xl max-w-md w-full p-6 shadow-xl">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+        <h3 class="text-base font-bold text-slate-900">개인정보처리방침</h3>
+        <button type="button" class="text-slate-400 hover:text-slate-700 text-lg" onclick="closeModal('privacyModal')">✕</button>
       </div>
-      <div class="modal-body">
-        <p><strong>1. 수집 항목 및 목적:</strong> 결제 및 고객상담을 위해 성명, 이메일, 결제 기록을 처리하며 법정 보존기간(대금결제 및 재화 등의 공급에 관한 기록 5년) 후 파기합니다.</p><br>
-        <p><strong>2. 개인정보보호책임자:</strong> 이광철 (이메일: help@cubiolab.com / 고객센터: 070-8018-8238)</p>
+      <div class="text-xs text-slate-600 leading-relaxed space-y-2">
+        <p><strong class="text-slate-900">수집 항목 및 목적:</strong> 결제 및 고객상담을 위해 성명, 이메일, 결제 기록을 처리하며 법정 보존기간 후 파기합니다.</p>
+        <p><strong class="text-slate-900">개인정보보호책임자:</strong> 이광철 (help@cubiolab.com / 070-8018-8238)</p>
       </div>
     </div>
   </div>
 
   <!-- 환불규정 모달 -->
   <div id="policyModal" class="modal-backdrop">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>환불 및 해지 정책</h3>
-        <button class="btn-close-modal" onclick="closeModal('policyModal')">✕</button>
+    <div class="bg-white border border-slate-200 rounded-xl max-w-md w-full p-6 shadow-xl">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+        <h3 class="text-base font-bold text-slate-900">환불 및 취소 규정</h3>
+        <button type="button" class="text-slate-400 hover:text-slate-700 text-lg" onclick="closeModal('policyModal')">✕</button>
       </div>
-      <div class="modal-body">
-        <p><strong>1. 서비스 제공 기간:</strong> 결제 완료 즉시 이용 가능하며, 결제일로부터 1개월(30일, 1년권은 365일)간 서비스가 제공됩니다.</p><br>
-        <p><strong>2. 청약철회(전액 환불):</strong> 결제일로부터 7일 이내에 유료 기능 이용 이력이 없는 경우 100% 전액 환불됩니다.</p><br>
-        <p><strong>3. 중도 해지(부분 환불):</strong> 이용 이력이 있거나 결제 후 7일이 경과하여 중도 해지를 요청하는 경우, 잔여 일수 일할 계산 금액에서 위약금(10%)을 공제한 금액을 환불합니다.</p><br>
-        <p><strong>4. 환불 접수처:</strong> 고객센터(070-8018-8238) 또는 이메일(help@cubiolab.com)</p>
+      <div class="text-xs text-slate-600 leading-relaxed">
+        <p>결제일로부터 7일 이내 미사용 시 100% 전액 환불되며, 중도 해지 시 잔여 일수 일할 계산 금액에서 위약금(10%) 공제 후 환불됩니다. (문의: help@cubiolab.com / 070-8018-8238)</p>
       </div>
     </div>
   </div>
 
   <script>
-    const TOSS_API_CLIENT_KEY = 'live_ck_Z1aOwX7K8mBMQNM924ba3yQxzvNP';
+    const TOSS_API_CLIENT_KEY = 'test_ck_DnyRpQWGrNaNRPo2mQylVKwv1M9E';
     let selectedPlan = { name: 'Graphly Pro 1개월 이용권 (30일)', amount: 3900 };
 
     function openModal(id) {
@@ -941,8 +676,8 @@
       document.getElementById('checkoutPlanName').textContent = planName;
       document.getElementById('checkoutPlanPrice').textContent = amount.toLocaleString('ko-KR') + '원';
       document.getElementById('checkoutPlanSub').textContent = planName.indexOf('365') !== -1
-        ? '결제 완료 즉시 이용 가능 · 결제일로부터 1년(365일)간 서비스 제공'
-        : '결제 완료 즉시 이용 가능 · 결제일로부터 1개월(30일)간 서비스 제공';
+        ? '제공기간: 결제일로부터 365일 (단건 이용권)'
+        : '제공기간: 결제일로부터 30일 (단건 이용권)';
       openModal('checkoutModal');
     }
 
@@ -972,28 +707,6 @@
         alert(error && error.message ? error.message : '결제 요청 중 오류가 발생했습니다.');
       });
     }
-
-    window.addEventListener('DOMContentLoaded', function () {
-      const params = new URLSearchParams(window.location.search);
-      const status = params.get('paymentStatus');
-      if (status === 'success') {
-        const orderId = params.get('orderId') || '';
-        const amount = Number(params.get('amount') || 3900).toLocaleString('ko-KR');
-        document.getElementById('paymentResultTitle').textContent = '결제 요청 완료';
-        document.getElementById('paymentResultBody').innerHTML =
-          '<p style="margin-bottom:10px;"><strong>카드 결제 인증이 정상적으로 완료되었습니다.</strong></p>' +
-          '<p>주문번호: <code>' + orderId + '</code><br>결제금액: <strong>' + amount + '원</strong></p>' +
-          '<div style="margin-top:16px;"><button class="btn-price-buy" onclick="closeModal(\'paymentResultModal\')">확인</button></div>';
-        openModal('paymentResultModal');
-      } else if (status === 'fail') {
-        const msg = params.get('message') || '결제가 취소되었거나 중단되었습니다.';
-        document.getElementById('paymentResultTitle').textContent = '결제 중단 안내';
-        document.getElementById('paymentResultBody').innerHTML =
-          '<p style="margin-bottom:14px;">' + msg + '</p>' +
-          '<button class="btn-price-buy" onclick="closeModal(\'paymentResultModal\')">확인</button>';
-        openModal('paymentResultModal');
-      }
-    });
   </script>
 </body>
 </html>

@@ -502,15 +502,16 @@
               <span class="text-[11px] px-2 py-0.5 rounded bg-slate-900 text-white font-medium">강사용 추천</span>
             </div>
             <h3 class="text-lg font-bold text-slate-900 mb-1.5">Graphly Pro</h3>
-            <div class="text-2xl font-bold text-slate-900 tracking-tight mb-3">3,900원 <span class="text-xs font-normal text-slate-500">/ 30일 (VAT 포함)</span></div>
-            <p class="text-xs text-slate-600 leading-relaxed mb-6">무제한 프리셋 · 클라우드 보관함 확장 · 수업 링크 &amp; QR 공유</p>
+            <div class="text-2xl font-bold text-slate-900 tracking-tight mb-3">3,900원 <span class="text-xs font-normal text-slate-500">/ 1개월(30일) · VAT 포함</span></div>
+            <p class="text-xs text-slate-600 leading-relaxed mb-2">무제한 프리셋 · 클라우드 보관함 확장 · 수업 링크 &amp; QR 공유</p>
+            <p class="text-[11px] text-slate-500 mb-5">결제 완료 즉시 이용 가능 (제공기간: 결제일로부터 1개월)</p>
           </div>
           <div class="grid grid-cols-2 gap-2">
             <button type="button" onclick="openCheckoutModal('Graphly Pro 1개월 이용권 (30일)', 3900)" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium py-2 rounded-lg transition-colors">
-              1개월권 (3,900원)
+              1개월권 결제 (3,900원)
             </button>
             <button type="button" onclick="openCheckoutModal('Graphly Pro 1년 이용권 (365일)', 39000)" class="bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 text-xs font-medium py-2 rounded-lg transition-colors">
-              1년권 (39,000원)
+              1년권 (39,000원·365일)
             </button>
           </div>
         </div>
@@ -523,18 +524,25 @@
               <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">메신저 확장</span>
             </div>
             <h3 class="text-lg font-bold text-slate-900 mb-1.5">Penchat Pro</h3>
-            <div class="text-2xl font-bold text-slate-900 tracking-tight mb-3">3,900원 <span class="text-xs font-normal text-slate-500">/ 30일 (VAT 포함)</span></div>
-            <p class="text-xs text-slate-600 leading-relaxed mb-6">터치 듣기 공유 링크 무제한 · 대용량 클라우드 보관함</p>
+            <div class="text-2xl font-bold text-slate-900 tracking-tight mb-3">3,900원 <span class="text-xs font-normal text-slate-500">/ 1개월(30일) · VAT 포함</span></div>
+            <p class="text-xs text-slate-600 leading-relaxed mb-2">터치 듣기 공유 링크 무제한 · 대용량 클라우드 보관함</p>
+            <p class="text-[11px] text-slate-500 mb-5">결제 완료 즉시 이용 가능 (제공기간: 결제일로부터 1개월)</p>
           </div>
           <div class="grid grid-cols-2 gap-2">
             <button type="button" onclick="openCheckoutModal('Penchat Pro 1개월 이용권 (30일)', 3900)" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium py-2 rounded-lg transition-colors">
-              1개월권 (3,900원)
+              1개월권 결제 (3,900원)
             </button>
             <button type="button" onclick="openCheckoutModal('Penchat Pro 1년 이용권 (365일)', 39000)" class="bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 text-xs font-medium py-2 rounded-lg transition-colors">
-              1년권 (39,000원)
+              1년권 (39,000원·365일)
             </button>
           </div>
         </div>
+      </div>
+
+      <!-- SaaS 서비스 제공 기간 및 환불 정책 필수 명시 -->
+      <div class="mt-5 px-5 py-4 bg-surface border border-slate-200 rounded-xl text-xs text-slate-600 leading-relaxed space-y-1">
+        <div><strong class="text-slate-800">서비스 제공 기간 안내:</strong> 모든 유료 요금제는 실물 배송이 없는 디지털 소프트웨어(SaaS) 상품으로, <strong class="text-slate-800">결제 완료 즉시 이용 가능하며, 결제일로부터 1개월(30일, 1년권은 365일)간 서비스가 제공됩니다.</strong></div>
+        <div><strong class="text-slate-800">환불 및 해지 정책 안내:</strong> 결제일로부터 7일 이내 이용 이력이 없는 경우 100% 전액 환불(청약철회)되며, 이용 이력이 있거나 중도 해지 시 잔여 이용일수 일할 계산 금액에서 위약금(10%)을 공제한 후 환불됩니다. <button type="button" onclick="openModal('policyModal')" class="text-slate-900 font-semibold underline hover:text-slate-700 ml-1 cursor-pointer">[환불규정 자세히 보기]</button></div>
       </div>
     </div>
   </section>
@@ -568,10 +576,15 @@
       <div class="pt-6 flex flex-col md:flex-row justify-between gap-4 text-xs text-slate-500 leading-relaxed">
         <div class="space-y-1">
           <p>
-            상호명: 큐비오랩 (CubioLab) &nbsp;|&nbsp; 대표자: 이광철 &nbsp;|&nbsp; 사업자등록번호: 354-08-03569 &nbsp;|&nbsp; 통신판매업신고번호: 신고 준비중
+            <strong class="font-medium text-slate-700">상호명:</strong> 큐비오랩 &nbsp;|&nbsp;
+            <strong class="font-medium text-slate-700">대표자 성명:</strong> 이광철 &nbsp;|&nbsp;
+            <strong class="font-medium text-slate-700">사업자등록번호:</strong> 354-08-03569 &nbsp;|&nbsp;
+            <strong class="font-medium text-slate-700">통신판매업 신고번호:</strong> 제 2026-경기양주-3241 호
           </p>
           <p class="text-slate-400">
-            주소: 경기도 양주시 옥정로 222, 6층 606호(옥정동, 스카이타워) &nbsp;|&nbsp; 고객센터: 070-8018-8238 &nbsp;|&nbsp; 이메일: help@cubiolab.com
+            <strong class="font-medium text-slate-500">사업장 주소:</strong> 경기도 양주시 옥정로 222, 6층 606호(옥정동, 스카이타워) &nbsp;|&nbsp;
+            <strong class="font-medium text-slate-500">고객센터 전화번호:</strong> 070-8018-8238 &nbsp;|&nbsp;
+            <strong class="font-medium text-slate-500">이메일:</strong> help@cubiolab.com
           </p>
         </div>
         <div class="text-slate-400 whitespace-nowrap self-start md:self-end">
@@ -592,7 +605,7 @@
         <div class="bg-slate-50 border border-slate-200 rounded-lg p-3.5 flex items-center justify-between">
           <div>
             <div class="text-sm font-bold text-slate-900" id="checkoutPlanName">Graphly Pro 1개월 이용권 (30일)</div>
-            <div class="text-[11px] text-slate-500 mt-0.5" id="checkoutPlanSub">제공기간: 결제일로부터 30일 (단건 이용권)</div>
+            <div class="text-[11px] text-slate-500 mt-0.5" id="checkoutPlanSub">결제 완료 즉시 이용 가능 · 결제일로부터 1개월(30일)간 서비스 제공</div>
           </div>
           <div class="text-lg font-bold text-slate-900" id="checkoutPlanPrice">3,900원</div>
         </div>
@@ -615,6 +628,17 @@
     </div>
   </div>
 
+  <!-- 결제 결과 모달 -->
+  <div id="paymentResultModal" class="modal-backdrop">
+    <div class="bg-white border border-slate-200 rounded-xl max-w-md w-full p-6 shadow-xl">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+        <h3 class="text-base font-bold text-slate-900" id="paymentResultTitle">결제 안내</h3>
+        <button type="button" class="text-slate-400 hover:text-slate-700 text-lg" onclick="closeModal('paymentResultModal')">✕</button>
+      </div>
+      <div class="text-xs text-slate-600 leading-relaxed" id="paymentResultBody"></div>
+    </div>
+  </div>
+
   <!-- 이용약관 모달 -->
   <div id="termsModal" class="modal-backdrop">
     <div class="bg-white border border-slate-200 rounded-xl max-w-md w-full p-6 shadow-xl">
@@ -622,9 +646,10 @@
         <h3 class="text-base font-bold text-slate-900">서비스 이용약관</h3>
         <button type="button" class="text-slate-400 hover:text-slate-700 text-lg" onclick="closeModal('termsModal')">✕</button>
       </div>
-      <div class="text-xs text-slate-600 leading-relaxed space-y-2">
-        <p><strong class="text-slate-900">제1조 (목적)</strong> 본 약관은 큐비오랩이 제공하는 Graphly, Penchat 웹 서비스의 이용 조건을 규정합니다.</p>
-        <p><strong class="text-slate-900">제2조 (이용기간)</strong> 유료 이용권은 단건 기간제(30일/365일) 상품으로 결제 즉시 활성화됩니다.</p>
+      <div class="text-xs text-slate-600 leading-relaxed space-y-2.5">
+        <p><strong class="text-slate-900">제1조 (목적)</strong><br/>본 약관은 큐비오랩(이하 "회사")이 제공하는 Graphly, Penchat 웹 소프트웨어 서비스의 이용 조건과 절차를 규정합니다.</p>
+        <p><strong class="text-slate-900">제2조 (서비스 제공 기간)</strong><br/>유료 이용권은 결제 완료 즉시 이용 가능하며, 결제일로부터 선택한 이용기간(1개월권 30일, 1년권 365일) 동안 서비스가 제공됩니다.</p>
+        <p><strong class="text-slate-900">제3조 (청약철회 및 중도 해지·환불)</strong><br/>결제일로부터 7일 이내 서비스 이용 이력이 없는 경우 100% 전액 환불이 가능하며, 이용 이력이 있거나 중도 해지를 요청하는 경우 잔여 이용일수 일할 계산 금액에서 위약금(10%)을 공제한 후 환불합니다.</p>
       </div>
     </div>
   </div>
@@ -636,9 +661,9 @@
         <h3 class="text-base font-bold text-slate-900">개인정보처리방침</h3>
         <button type="button" class="text-slate-400 hover:text-slate-700 text-lg" onclick="closeModal('privacyModal')">✕</button>
       </div>
-      <div class="text-xs text-slate-600 leading-relaxed space-y-2">
-        <p><strong class="text-slate-900">수집 항목 및 목적:</strong> 결제 및 고객상담을 위해 성명, 이메일, 결제 기록을 처리하며 법정 보존기간 후 파기합니다.</p>
-        <p><strong class="text-slate-900">개인정보보호책임자:</strong> 이광철 (help@cubiolab.com / 070-8018-8238)</p>
+      <div class="text-xs text-slate-600 leading-relaxed space-y-2.5">
+        <p><strong class="text-slate-900">1. 수집 항목 및 목적:</strong> 결제 및 고객상담을 위해 성명, 이메일, 결제 기록을 처리하며 법정 보존기간(대금결제 및 재화 등의 공급에 관한 기록 5년) 후 파기합니다.</p>
+        <p><strong class="text-slate-900">2. 개인정보보호책임자:</strong> 이광철 (이메일: help@cubiolab.com / 고객센터: 070-8018-8238)</p>
       </div>
     </div>
   </div>
@@ -647,17 +672,20 @@
   <div id="policyModal" class="modal-backdrop">
     <div class="bg-white border border-slate-200 rounded-xl max-w-md w-full p-6 shadow-xl">
       <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
-        <h3 class="text-base font-bold text-slate-900">환불 및 취소 규정</h3>
+        <h3 class="text-base font-bold text-slate-900">환불 및 해지 정책</h3>
         <button type="button" class="text-slate-400 hover:text-slate-700 text-lg" onclick="closeModal('policyModal')">✕</button>
       </div>
-      <div class="text-xs text-slate-600 leading-relaxed">
-        <p>결제일로부터 7일 이내 미사용 시 100% 전액 환불되며, 중도 해지 시 잔여 일수 일할 계산 금액에서 위약금(10%) 공제 후 환불됩니다. (문의: help@cubiolab.com / 070-8018-8238)</p>
+      <div class="text-xs text-slate-600 leading-relaxed space-y-2.5">
+        <p><strong class="text-slate-900">1. 서비스 제공 기간:</strong> 결제 완료 즉시 이용 가능하며, 결제일로부터 1개월(30일, 1년권은 365일)간 서비스가 제공됩니다.</p>
+        <p><strong class="text-slate-900">2. 청약철회(전액 환불):</strong> 결제일로부터 7일 이내에 유료 기능 이용 이력이 없는 경우 100% 전액 환불됩니다.</p>
+        <p><strong class="text-slate-900">3. 중도 해지(부분 환불):</strong> 이용 이력이 있거나 결제 후 7일이 경과하여 중도 해지를 요청하는 경우, 잔여 일수 일할 계산 금액에서 위약금(10%)을 공제한 금액을 환불합니다.</p>
+        <p><strong class="text-slate-900">4. 환불 접수처:</strong> 고객센터(070-8018-8238) 또는 이메일(help@cubiolab.com)</p>
       </div>
     </div>
   </div>
 
   <script>
-    const TOSS_API_CLIENT_KEY = 'test_ck_DnyRpQWGrNaNRPo2mQylVKwv1M9E';
+    const TOSS_API_CLIENT_KEY = 'live_ck_Z1aOwX7K8mBMQNM924ba3yQxzvNP';
     let selectedPlan = { name: 'Graphly Pro 1개월 이용권 (30일)', amount: 3900 };
 
     function openModal(id) {
@@ -676,8 +704,8 @@
       document.getElementById('checkoutPlanName').textContent = planName;
       document.getElementById('checkoutPlanPrice').textContent = amount.toLocaleString('ko-KR') + '원';
       document.getElementById('checkoutPlanSub').textContent = planName.indexOf('365') !== -1
-        ? '제공기간: 결제일로부터 365일 (단건 이용권)'
-        : '제공기간: 결제일로부터 30일 (단건 이용권)';
+        ? '결제 완료 즉시 이용 가능 · 결제일로부터 1년(365일)간 서비스 제공'
+        : '결제 완료 즉시 이용 가능 · 결제일로부터 1개월(30일)간 서비스 제공';
       openModal('checkoutModal');
     }
 
@@ -707,6 +735,28 @@
         alert(error && error.message ? error.message : '결제 요청 중 오류가 발생했습니다.');
       });
     }
+
+    window.addEventListener('DOMContentLoaded', function () {
+      const params = new URLSearchParams(window.location.search);
+      const status = params.get('paymentStatus');
+      if (status === 'success') {
+        const orderId = params.get('orderId') || '';
+        const amount = Number(params.get('amount') || 3900).toLocaleString('ko-KR');
+        document.getElementById('paymentResultTitle').textContent = '결제 요청 완료';
+        document.getElementById('paymentResultBody').innerHTML =
+          '<p class="mb-2.5"><strong class="text-slate-900">카드 결제 인증이 정상적으로 완료되었습니다.</strong></p>' +
+          '<p>주문번호: <code class="font-mono text-slate-800">' + orderId + '</code><br/>결제금액: <strong class="text-slate-900">' + amount + '원</strong></p>' +
+          '<div class="mt-4"><button type="button" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-2 rounded-lg text-xs transition-colors" onclick="closeModal(\'paymentResultModal\')">확인</button></div>';
+        openModal('paymentResultModal');
+      } else if (status === 'fail') {
+        const msg = params.get('message') || '결제가 취소되었거나 중단되었습니다.';
+        document.getElementById('paymentResultTitle').textContent = '결제 중단 안내';
+        document.getElementById('paymentResultBody').innerHTML =
+          '<p class="mb-3.5">' + msg + '</p>' +
+          '<button type="button" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-2 rounded-lg text-xs transition-colors" onclick="closeModal(\'paymentResultModal\')">확인</button>';
+        openModal('paymentResultModal');
+      }
+    });
   </script>
 </body>
 </html>

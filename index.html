@@ -247,52 +247,104 @@
             <!-- One-line summary -->
             <p class="text-slate-600 text-sm mb-5">수식 입력 없이 드래그로 완성하는 수학 칠판</p>
 
-            <!-- Minimalist UI Preview Window -->
-            <div class="border border-slate-200 rounded-lg bg-white overflow-hidden mb-6 relative">
+            <!-- Minimalist UI Preview Window: Stamp & Drag Studio -->
+            <div class="border border-slate-200 rounded-lg bg-white overflow-hidden mb-6 relative select-none">
               <!-- Window Toolbar -->
               <div class="h-8 bg-slate-50 border-b border-slate-200 flex items-center justify-between px-3 text-[11px] text-slate-500 font-mono">
                 <div class="flex items-center gap-1.5">
                   <span class="w-2 h-2 rounded-full bg-slate-300"></span>
                   <span class="w-2 h-2 rounded-full bg-slate-200"></span>
                   <span class="w-2 h-2 rounded-full bg-slate-200"></span>
-                  <span class="ml-1.5 text-slate-400">cubic_handle_mode</span>
+                  <span class="ml-1.5 text-slate-400">stamp_studio</span>
                 </div>
-                <div class="bg-white px-2 py-0.5 rounded border border-slate-200 text-slate-700 font-medium">
-                  2 : 1 비율 자동 보존
+                <div class="bg-white px-2 py-0.5 rounded border border-slate-200 text-slate-700 font-sans font-medium text-[10.5px]">
+                  2 : 1 비율 · 줄맞춤 스냅
                 </div>
               </div>
 
-              <!-- Coordinate Grid & Graph Simulation Canvas -->
-              <div class="h-56 relative bg-[#FAFAFA] overflow-hidden select-none">
-                <!-- Grid Lines -->
-                <svg class="absolute inset-0 w-full h-full stroke-slate-200/70" stroke-width="1">
-                  <defs>
-                    <pattern height="28" id="grid-pattern" patternUnits="userSpaceOnUse" width="28">
-                      <path d="M 28 0 L 0 0 0 28" fill="none"></path>
-                    </pattern>
-                  </defs>
-                  <rect fill="url(#grid-pattern)" height="100%" width="100%"></rect>
-                </svg>
-                <!-- Axis Lines & Cubic Curve -->
-                <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 220">
-                  <line stroke="#CBD5E1" stroke-width="1.2" x1="0" x2="400" y1="125" y2="125"></line>
-                  <line stroke="#CBD5E1" stroke-width="1.2" x1="110" x2="110" y1="0" y2="220"></line>
-                  <line stroke="#94A3B8" stroke-dasharray="3 3" stroke-width="1" x1="145" x2="295" y1="52" y2="52"></line>
-                  <line stroke="#94A3B8" stroke-dasharray="3 3" stroke-width="1" x1="295" x2="295" y1="52" y2="156"></line>
-                  <path d="M 55 178 C 110 20, 175 20, 220 104 C 265 188, 330 188, 375 36" fill="none" stroke="#1E293B" stroke-linecap="round" stroke-width="2.5"></path>
-                  <circle cx="145" cy="52" fill="#FFFFFF" r="5" stroke="#0F172A" stroke-width="2.5"></circle>
-                  <circle cx="220" cy="104" fill="#4F46E5" r="4"></circle>
-                  <circle cx="295" cy="156" fill="#FFFFFF" r="5" stroke="#0F172A" stroke-width="2.5"></circle>
-                </svg>
-                <!-- Floating Badge -->
-                <div class="absolute top-3.5 right-3.5 bg-slate-900 text-white px-2.5 py-1 rounded text-[11px] font-medium flex items-center gap-1.5 shadow-xs">
-                  <span class="material-symbols-outlined text-[14px]">content_copy</span>
-                  <span>Ctrl+C 투명 PNG 복사</span>
+              <!-- Coordinate Grid & Stamp Workflow Canvas -->
+              <div class="sm:h-[262px] relative bg-[#FAFAFA] grid-paper p-3.5 flex flex-col justify-between overflow-hidden">
+                <!-- 2-Stage Stamp Comparison Row -->
+                <div class="grid grid-cols-1 sm:grid-cols-11 gap-1.5 items-center my-auto">
+                  <!-- Stage 1: Borderless Stamped Graph on Board -->
+                  <div class="sm:col-span-5 px-1.5 pt-1 pb-0.5 relative">
+                    <div class="flex items-center justify-between mb-0.5">
+                      <span class="text-[10px] font-mono text-slate-400 font-semibold">Case (i) · 칠판 박제됨</span>
+                      <span class="text-[10px] font-semibold text-red-600">실근 2개 ✓</span>
+                    </div>
+                    <div class="h-[142px] relative">
+                      <svg class="w-full h-full overflow-visible" viewBox="0 0 185 130">
+                        <!-- Coordinate Axes (y=88 aligned) -->
+                        <line stroke="#CBD5E1" stroke-width="1.15" x1="8" x2="178" y1="88" y2="88"></line>
+                        <line stroke="#CBD5E1" stroke-width="1.15" x1="22" x2="22" y1="12" y2="118"></line>
+                        <!-- Extrema & 2:1 Ratio Drop Lines -->
+                        <line stroke="#94A3B8" stroke-dasharray="2.5 2.5" stroke-width="1" x1="68" x2="68" y1="36" y2="88"></line>
+                        <line stroke="#94A3B8" stroke-dasharray="2.5 2.5" stroke-width="1" x1="68" x2="167" y1="36" y2="36"></line>
+                        <line stroke="#94A3B8" stroke-dasharray="2.5 2.5" stroke-width="1" x1="134" x2="134" y1="36" y2="88"></line>
+                        <!-- Exact Polynomial Cubic Curve: f(u) = 36 + 52(3u^2 - 2u^3), tangent to x-axis at (134,88) -->
+                        <path d="M 31.0 103.2 C 77.7 -89.4, 124.3 213.4, 171.0 20.8" fill="none" stroke="#1E293B" stroke-linecap="round" stroke-width="2.2"></path>
+                        <circle cx="35" cy="88" fill="#64748B" r="2.2"></circle>
+                        <circle cx="68" cy="36" fill="#1E293B" r="2.5"></circle>
+                        <circle cx="101" cy="62" fill="#64748B" r="2.2"></circle>
+                        <circle cx="134" cy="88" fill="#1E293B" r="2.5"></circle>
+                        <text fill="#64748B" font-family="Geist, monospace" font-size="9" x="63" y="100">α</text>
+                        <text fill="#64748B" font-family="Geist, monospace" font-size="9" x="130" y="101">β</text>
+                        <text fill="#475569" font-family="Pretendard, sans-serif" font-size="8.5" font-weight="600" x="92" y="31">2 : 1</text>
+                        <!-- Borderless Handwritten Red Ink over Stamped Graph -->
+                        <ellipse cx="134" cy="88" fill="none" rx="13" ry="8" stroke="#DC2626" stroke-width="1.4" transform="rotate(-6 134 88)"></ellipse>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <!-- Magnetic Snap Rail Bridge (Only in gap, never crossing graphs) -->
+                  <div class="hidden sm:flex sm:col-span-1 flex-col items-center justify-center gap-1 pt-5">
+                    <span class="text-[9px] font-mono text-slate-400 whitespace-nowrap">스냅</span>
+                    <div class="w-full border-t-[1.5px] border-dashed border-slate-400/80 relative flex items-center justify-end">
+                      <span class="text-[10px] text-slate-400 -mr-0.5 leading-none">→</span>
+                    </div>
+                  </div>
+
+                  <!-- Stage 2: Active Floating Graph Window with Stamp(S) Button -->
+                  <div class="sm:col-span-5 bg-white rounded-lg border border-slate-300 shadow-sm p-2 relative">
+                    <div class="flex items-center justify-between pb-1.5 mb-0.5 border-b border-slate-100">
+                      <span class="text-[10px] font-semibold text-slate-700">Case (ii) 그래프 창</span>
+                      <span class="bg-slate-900 text-white px-2 py-0.5 rounded text-[10px] font-medium inline-flex items-center gap-1 shadow-2xs">
+                        <svg class="w-2.5 h-2.5 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+                          <path d="M5 21h14"></path>
+                          <path d="M19 16v-1a2 2 0 0 0-2-2h-2.5a1.5 1.5 0 0 1-1.5-1.5V8a2 2 0 1 0-4 0v3.5A1.5 1.5 0 0 1 7.5 13H5a2 2 0 0 0-2 2v1h16Z"></path>
+                        </svg>
+                        <span>스탬프 S</span>
+                      </span>
+                    </div>
+                    <div class="h-[132px] relative">
+                      <svg class="w-full h-full overflow-visible" viewBox="0 0 185 124">
+                        <!-- Aligned Coordinate Axes (same visual horizon y=82 inside card) -->
+                        <line stroke="#CBD5E1" stroke-width="1.15" x1="8" x2="176" y1="82" y2="82"></line>
+                        <line stroke="#CBD5E1" stroke-width="1.15" x1="22" x2="22" y1="10" y2="116"></line>
+                        <!-- Drag guide showing minimum pulled below x-axis -->
+                        <line stroke="#94A3B8" stroke-dasharray="2 2" stroke-width="1" x1="130" x2="130" y1="82" y2="104"></line>
+                        <!-- Exact Polynomial Cubic Curve: 3 distinct real roots -->
+                        <path d="M 37.0 104.0 C 77.9 -68.3, 118.8 214.2, 159.8 51.1" fill="none" stroke="#0F172A" stroke-linecap="round" stroke-width="2.3"></path>
+                        <!-- Draggable Handles -->
+                        <circle cx="68" cy="46" fill="#FFFFFF" r="4.2" stroke="#0F172A" stroke-width="2.2"></circle>
+                        <circle cx="99" cy="75" fill="#4F46E5" r="3.4"></circle>
+                        <circle cx="130" cy="104" fill="#FFFFFF" r="4.8" stroke="#4F46E5" stroke-width="2.4"></circle>
+                        <text fill="#4F46E5" font-family="Pretendard, sans-serif" font-size="8.5" font-weight="600" x="98" y="117">↓ 핸들 드래그</text>
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-                <!-- Control Hint Overlay -->
-                <div class="absolute bottom-3 left-3 bg-white/95 px-2.5 py-1 rounded border border-slate-200 text-[11px] text-slate-600 flex items-center gap-1.5">
-                  <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
-                  <span>극대·극소·변곡점 핸들 드래그</span>
+
+                <!-- Bottom Control Bar -->
+                <div class="pt-2 flex items-center justify-between gap-2">
+                  <div class="bg-white/95 px-2.5 py-1 rounded border border-slate-200 text-[11px] text-slate-700 flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 shrink-0"></span>
+                    <span class="truncate">핸들 드래그 변형 → <strong class="font-semibold text-slate-900">스탬프(S)</strong> 연속 박제</span>
+                  </div>
+                  <div class="bg-slate-900 text-white px-2.5 py-1 rounded text-[11px] font-medium flex items-center gap-1 shrink-0">
+                    <span class="material-symbols-outlined text-[13px]">content_copy</span>
+                    <span>Ctrl+C 삽도</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -305,7 +357,7 @@
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="material-symbols-outlined text-slate-900 text-base">check</span>
-                <span>PDF 교재 문항 캡처 &amp; 실시간 음성 판서</span>
+                <span>스탬프(S) 연속 개형 박제 &amp; PDF 문항 음성 판서</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="material-symbols-outlined text-slate-900 text-base">check</span>
@@ -336,47 +388,162 @@
             <!-- One-line summary -->
             <p class="text-slate-600 text-sm mb-5">붙여넣고, 그리며 말하고, 링크로 바로 보내는 메신저</p>
 
-            <!-- Minimalist UI Preview Window -->
-            <div class="border border-slate-200 rounded-lg bg-white overflow-hidden mb-6 relative">
-              <!-- Window Toolbar -->
-              <div class="h-8 bg-slate-50 border-b border-slate-200 flex items-center justify-between px-3 text-[11px] text-slate-500 font-mono">
-                <div class="flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-                  <span class="w-2 h-2 rounded-full bg-slate-200"></span>
-                  <span class="w-2 h-2 rounded-full bg-slate-200"></span>
-                  <span class="ml-1.5 text-slate-400">voice_ink_sync</span>
+            <!-- Minimalist UI Preview Window: Multi-Context Visual & Voice Review -->
+            <div class="border border-slate-200 rounded-lg bg-white overflow-hidden mb-6 relative select-none">
+              <!-- Window Toolbar with Multi-Purpose Context Pills -->
+              <div class="h-8 bg-slate-50 border-b border-slate-200 flex items-center justify-between px-3 text-[11px] text-slate-500">
+                <div class="flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-slate-300 hidden sm:inline-block"></span>
+                  <span class="w-2 h-2 rounded-full bg-slate-200 mr-1 hidden sm:inline-block"></span>
+                  <button type="button" onclick="switchPenchatScene(0)" data-penchat-tab="0" class="px-2 py-0.5 rounded text-[10.5px] font-medium bg-slate-900 text-white transition-colors cursor-pointer">업무·시안</button>
+                  <button type="button" onclick="switchPenchatScene(1)" data-penchat-tab="1" class="px-2 py-0.5 rounded text-[10.5px] font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-200/60 transition-colors cursor-pointer">설계·상담</button>
+                  <button type="button" onclick="switchPenchatScene(2)" data-penchat-tab="2" class="px-2 py-0.5 rounded text-[10.5px] font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-200/60 transition-colors cursor-pointer">과목·첨삭</button>
                 </div>
-                <div class="flex items-center gap-1.5">
+                <div class="flex items-center gap-1.5 shrink-0">
                   <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-                  <span class="text-slate-700 font-medium">00:38 녹화됨</span>
+                  <span class="text-slate-700 font-mono font-medium text-[10.5px]">00:42 녹화됨</span>
                 </div>
               </div>
 
               <!-- Document & Visual Annotations Canvas -->
-              <div class="h-56 relative bg-[#FAFAFA] p-4 flex flex-col justify-between overflow-hidden select-none">
-                <div class="bg-white p-3.5 rounded border border-slate-200/90 relative">
-                  <div class="text-[10px] text-slate-400 font-mono mb-1">DOCUMENT STAGE · FULL FIT</div>
-                  <div class="text-xs text-slate-800 leading-relaxed relative">
-                    최고차항의 계수가 1인 삼차함수 <span class="font-mono font-medium">f(x)</span>에 대하여,
-                    <span class="relative inline-block px-1">
-                      <span class="absolute inset-0 bg-yellow-200/65 rounded"></span>
-                      <span class="relative font-semibold text-slate-900">함수 g(x) = f(x) - f'(1)(x-1)</span>
-                    </span>
-                    이 오직 하나의 극값을 가질 때 값을 구하시오.
+              <div class="sm:h-[262px] relative bg-[#FAFAFA] p-3.5 flex flex-col justify-between overflow-hidden">
+                <!-- Scene 0: 회사 업무 / UI·기획 시안 피드백 (Default) -->
+                <div data-penchat-scene="0" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 my-auto">
+                  <!-- Left: UI / Design Mockup Review -->
+                  <div class="bg-white p-3 rounded-lg border border-slate-200/90 relative flex flex-col justify-between">
+                    <div class="flex items-center justify-between text-[9.5px] text-slate-400 font-mono mb-1.5">
+                      <span>LAYOUT REVIEW</span>
+                      <span>시안 v2</span>
+                    </div>
+                    <div class="space-y-1.5">
+                      <div class="h-4 rounded bg-slate-100 border border-slate-200/70 flex items-center px-2 text-[9px] text-slate-400">상단 네비게이션</div>
+                      <div class="h-10 rounded bg-slate-50 border border-slate-200/70 flex items-center justify-center text-[10px] text-slate-500">메인 비주얼 배너</div>
+                      <div class="relative pt-0.5">
+                        <div class="h-9 rounded border border-dashed border-red-300 bg-red-50/30 flex items-center justify-between px-2">
+                          <span class="text-[10px] font-semibold text-slate-800">신청 버튼 영역</span>
+                          <span class="bg-indigo-50 border border-indigo-200 text-indigo-700 px-1.5 py-0.5 rounded text-[9.5px] font-semibold">▶ 0:14 듣기</span>
+                        </div>
+                        <svg class="absolute -left-1 -top-1 w-24 h-11 pointer-events-none overflow-visible" viewBox="0 0 100 44">
+                          <ellipse cx="44" cy="22" fill="none" rx="38" ry="15" stroke="#DC2626" stroke-width="1.5" transform="rotate(-3 44 22)"></ellipse>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="mt-2 text-[10px] font-semibold text-red-600">↳ 여백 넓히고 문구 강조</div>
                   </div>
-                  <!-- Hand-drawn Red Pen Annotation -->
-                  <svg class="absolute -right-1 -bottom-2.5 w-28 h-12 pointer-events-none" viewBox="0 0 120 50">
-                    <ellipse cx="60" cy="25" fill="none" rx="48" ry="16" stroke="#DC2626" stroke-linecap="round" stroke-width="1.8" transform="rotate(-3 60 25)"></ellipse>
-                  </svg>
+
+                  <!-- Right: Work Schedule & Proposal Note -->
+                  <div class="bg-white p-3 rounded-lg border border-slate-200/90 flex flex-col justify-between">
+                    <div>
+                      <div class="flex items-center justify-between text-[9.5px] text-slate-400 font-mono mb-1.5">
+                        <span>WORK NOTE</span>
+                        <span class="text-slate-600 font-sans font-medium">기획·운영팀</span>
+                      </div>
+                      <div class="text-[11px] font-bold text-slate-900 pb-1.5 mb-1.5 border-b border-slate-100">신규 캠페인 오픈 일정 협의</div>
+                      <p class="text-[11px] text-slate-600 leading-relaxed">
+                        1차 디자인 수정안 반영 후 모바일 화면 검수 진행합니다.
+                      </p>
+                      <div class="mt-1.5">
+                        <span class="bg-yellow-200/70 px-1 py-0.5 rounded text-[11px] font-semibold text-slate-900">금요일 오전 컨펌 후 즉시 반영</span>
+                      </div>
+                    </div>
+                    <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between">
+                      <span class="text-[10px] font-semibold text-slate-700">✓ 담당자 확인</span>
+                      <span class="bg-indigo-50 border border-indigo-200 text-indigo-700 px-1.5 py-0.5 rounded text-[9.5px] font-semibold">▶ 0:28 듣기</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Scene 1: 설계사 · 인테리어/도면 · 고객 맞춤 상담 -->
+                <div data-penchat-scene="1" class="hidden grid-cols-1 sm:grid-cols-2 gap-2.5 my-auto">
+                  <div class="bg-white p-3 rounded-lg border border-slate-200/90 relative flex flex-col justify-between">
+                    <div class="flex items-center justify-between text-[9.5px] text-slate-400 font-mono mb-1">
+                      <span>FLOOR PLAN</span>
+                      <span>평면·동선 도면</span>
+                    </div>
+                    <div class="h-[96px] relative bg-slate-50/70 rounded border border-slate-200/80 p-1.5">
+                      <svg class="w-full h-full overflow-visible" viewBox="0 0 170 76">
+                        <rect x="6" y="6" width="158" height="64" fill="#FFFFFF" stroke="#64748B" stroke-width="1.5"></rect>
+                        <line x1="68" y1="6" x2="68" y2="44" stroke="#64748B" stroke-width="1.3"></line>
+                        <path d="M 68 44 A 18 18 0 0 0 86 62" fill="none" stroke="#94A3B8" stroke-dasharray="2 2" stroke-width="1"></path>
+                        <rect x="92" y="20" width="54" height="22" rx="2" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.1"></rect>
+                        <text x="103" y="34" fill="#475569" font-size="8.5" font-family="Pretendard, sans-serif">아일랜드</text>
+                        <!-- Red Pen Consultation Markup -->
+                        <path d="M 88 52 L 148 52" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round"></path>
+                        <path d="M 92 49 L 88 52 L 92 55 M 144 49 L 148 52 L 144 55" fill="none" stroke="#DC2626" stroke-width="1.3"></path>
+                      </svg>
+                    </div>
+                    <div class="mt-2 flex items-center justify-between">
+                      <span class="text-[10px] font-semibold text-red-600">↳ 동선 폭 950mm 확보</span>
+                      <span class="bg-indigo-50 border border-indigo-200 text-indigo-700 px-1.5 py-0.5 rounded text-[9.5px] font-semibold">▶ 0:18 듣기</span>
+                    </div>
+                  </div>
+
+                  <div class="bg-white p-3 rounded-lg border border-slate-200/90 flex flex-col justify-between">
+                    <div>
+                      <div class="flex items-center justify-between text-[9.5px] text-slate-400 font-mono mb-1.5">
+                        <span>CLIENT BRIEF</span>
+                        <span class="text-slate-600 font-sans font-medium">고객 상담안</span>
+                      </div>
+                      <div class="text-[11px] font-bold text-slate-900 pb-1.5 mb-1.5 border-b border-slate-100">맞춤 설계 및 견적·특약 안내</div>
+                      <p class="text-[11px] text-slate-600 leading-relaxed">
+                        요청하신 예산 범위에 맞춰 불필요한 항목을 조정했습니다.
+                      </p>
+                      <div class="mt-1.5">
+                        <span class="bg-yellow-200/70 px-1 py-0.5 rounded text-[11px] font-semibold text-slate-900">핵심 보장 항목 및 변경 조건 확인</span>
+                      </div>
+                    </div>
+                    <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between">
+                      <span class="text-[10px] font-semibold text-slate-700">✓ 고객 회신 가능</span>
+                      <span class="bg-indigo-50 border border-indigo-200 text-indigo-700 px-1.5 py-0.5 rounded text-[9.5px] font-semibold">▶ 0:34 듣기</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Scene 2: 국어·영어·논술 등 다과목 강사 첨삭 -->
+                <div data-penchat-scene="2" class="hidden grid-cols-1 sm:grid-cols-2 gap-2.5 my-auto">
+                  <div class="bg-white p-3 rounded-lg border border-slate-200/90 relative flex flex-col justify-between">
+                    <div class="flex items-center justify-between text-[9.5px] text-slate-400 font-mono mb-1.5">
+                      <span>ESSAY &amp; READING</span>
+                      <span>지문·작문 첨삭</span>
+                    </div>
+                    <div class="text-[11px] text-slate-700 leading-relaxed space-y-1.5">
+                      <p>서론에서 제시한 핵심 주장이 두 번째 단락의 사례와 직결되도록,</p>
+                      <p class="relative inline-block">
+                        <span class="bg-yellow-200/70 px-1 py-0.5 rounded font-semibold text-slate-900">역접 접속사 대신 인과 표현으로 전환</span>
+                      </p>
+                      <p>해주면 문단 간 논리 흐름이 훨씬 선명해집니다.</p>
+                    </div>
+                    <div class="mt-2 flex items-center justify-between">
+                      <span class="text-[10px] font-semibold text-red-600">↳ 문장 연결 호흡 교정</span>
+                      <span class="bg-indigo-50 border border-indigo-200 text-indigo-700 px-1.5 py-0.5 rounded text-[9.5px] font-semibold">▶ 0:11 듣기</span>
+                    </div>
+                  </div>
+
+                  <div class="bg-white p-3 rounded-lg border border-slate-200/90 flex flex-col justify-between">
+                    <div>
+                      <div class="flex items-center justify-between text-[9.5px] text-slate-400 font-mono mb-1.5">
+                        <span>COACHING NOTE</span>
+                        <span class="text-slate-600 font-sans font-medium">1:1 음성 첨삭</span>
+                      </div>
+                      <div class="text-[11px] font-bold text-slate-900 pb-1.5 mb-1.5 border-b border-slate-100">과제 핵심 평가 코멘트</div>
+                      <p class="text-[11px] text-slate-600 leading-relaxed">
+                        주제문 설정과 핵심 어휘 선택이 매우 안정적입니다. 표시한 2곳만 다듬어 다시 링크로 보내주세요.
+                      </p>
+                    </div>
+                    <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between">
+                      <span class="text-[10px] font-semibold text-slate-700">✓ 재첨삭 회신 지원</span>
+                      <span class="bg-indigo-50 border border-indigo-200 text-indigo-700 px-1.5 py-0.5 rounded text-[9.5px] font-semibold">▶ 0:29 듣기</span>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- Interactive Bottom Bar -->
-                <div class="flex items-center justify-between gap-2">
-                  <div class="bg-white px-2.5 py-1 rounded border border-slate-200 text-[11px] text-slate-700 flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-[14px] text-slate-900">touch_app</span>
-                    <span class="font-medium">필기 터치 시 해당 시점 음성 즉시 재생</span>
+                <div class="pt-2 flex items-center justify-between gap-2">
+                  <div class="bg-white/95 px-2.5 py-1 rounded border border-slate-200 text-[11px] text-slate-700 flex items-center gap-1.5 min-w-0">
+                    <span class="material-symbols-outlined text-[14px] text-slate-900 shrink-0">touch_app</span>
+                    <span class="font-medium truncate">필기 터치 시 해당 시점 음성 즉시 재생</span>
                   </div>
-                  <div class="bg-slate-900 text-white px-2.5 py-1 rounded text-[11px] font-medium flex items-center gap-1">
+                  <div class="bg-slate-900 text-white px-2.5 py-1 rounded text-[11px] font-medium flex items-center gap-1 shrink-0">
                     <span>공유</span>
                     <span>↗</span>
                   </div>
@@ -722,6 +889,20 @@
       }).catch(function (error) {
         if (error && error.code === 'USER_CANCEL') return;
         alert(error && error.message ? error.message : '결제 요청 중 오류가 발생했습니다.');
+      });
+    }
+
+    function switchPenchatScene(activeIdx) {
+      document.querySelectorAll('[data-penchat-scene]').forEach(function (el) {
+        const isMatch = Number(el.getAttribute('data-penchat-scene')) === activeIdx;
+        el.classList.toggle('hidden', !isMatch);
+        el.classList.toggle('grid', isMatch);
+      });
+      document.querySelectorAll('[data-penchat-tab]').forEach(function (btn) {
+        const isMatch = Number(btn.getAttribute('data-penchat-tab')) === activeIdx;
+        btn.className = isMatch
+          ? 'px-2 py-0.5 rounded text-[10.5px] font-medium bg-slate-900 text-white transition-colors cursor-pointer'
+          : 'px-2 py-0.5 rounded text-[10.5px] font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-200/60 transition-colors cursor-pointer';
       });
     }
 
